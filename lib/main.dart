@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
-import 'landingPage.dart';
-
-
 void main() => runApp(UASReg());
 
 class UASReg extends StatelessWidget {
@@ -106,6 +103,31 @@ class _LoginPage extends State<LoginPage> {
     );
   }
 }//login page logic
+
+//start of 2nd page after login
+
+class UASRegistered extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'UAS Reg',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: RegisteredUASPage(title: 'Registered UAS'),
+    );
+  }
+}
+
+class RegisteredUASPage extends StatefulWidget {
+  RegisteredUASPage({Key key, this.title}) : super(key: key);
+  final String title;
+
+  @override
+  _RegisteredUASPage createState() => _RegisteredUASPage();
+}
+
+class _RegisteredUASPage extends State<RegisteredUASPage> {
 
   TabController _controller;
 
