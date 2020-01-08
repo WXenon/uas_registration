@@ -217,7 +217,7 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
                         ),
                         new Align(
                           child: new Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               new Container(
                                 margin: EdgeInsets.fromLTRB(10, 25, 0, 0),
@@ -227,13 +227,14 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
                           ),
                         ),
                         new Container(
-                          margin: const EdgeInsets.all(15.0),
-                          padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                          padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.blueAccent),
                             borderRadius: new BorderRadius.circular(30.0),
                           ),
                           child: new Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               new CheckboxListTile(
                                 value: weightReq,
@@ -299,6 +300,11 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
                                 value: zeromarginSafety,
                                 onChanged: _zeromarginSafetyChanged,
                                 title: new Text("Margin of Safety(SF 1.5) for (1)Joint Mechanism between tether to the VTOL UAS, (2)Anchoring Mechanism between the tether and Anchoring Point, (3)tether and (4)Length restraining mechanism(if any) at least 0"),
+                              ),
+                              new Container(
+                                margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                child: new Text("*DO NOTE THAT ALL IN BASELINE REQUIREMENTS ARE TO BE CHECKED TO BE ACCEPTED FOR REGISTRATION!",
+                                  style: new TextStyle(fontSize: 10, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic, color: Colors.red))
                               ),
                             ],
                           )
