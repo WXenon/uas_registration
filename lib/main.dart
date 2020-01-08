@@ -67,7 +67,7 @@ class _LoginPage extends State<LoginPage> {
                           color: Colors.black,
                           fontSize: 18.0,
                         ),
-                        keyboardType: TextInputType.multiline,
+                        keyboardType: TextInputType.visiblePassword,
                         cursorColor: Colors.blue,
                         decoration: new InputDecoration(
                           labelText: 'Password',
@@ -151,26 +151,26 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
     )) ?? false;
   }
 
+  bool weightReq = false, pL_passive = false, pL_non_jett = false, pL_approvedConfByOEM = false, UASConf_approved = false, batteryInUAS = false,
+      batteryInController = false, dF_returnHome = false, dF_emergLandingSysUser = false, dF_geoFencing = false,
+      dF_2steppropulsion = false, cots = false, zeromarginSafety = false;
+
+  void _weightReqChanged(bool value) { setState(() {weightReq = value;});}
+  void _pL_passiveChanged(bool value) => setState(() => pL_passive = value);
+  void _pL_non_jettChanged(bool value) => setState(() => pL_non_jett = value);
+  void _pL_approvedConfByOEMChanged(bool value) => setState(() => pL_approvedConfByOEM = value);
+  void _UASConf_approvedChanged(bool value) => setState(() => UASConf_approved = value);
+  void _batteryInUASChanged(bool value) => setState(() => batteryInUAS = value);
+  void _batteryInControllerChanged(bool value) => setState(() => batteryInController = value);
+  void _dF_returnHomeChanged(bool value) => setState(() => dF_returnHome = value);
+  void _dF_emergLandingSysUserChanged(bool value) => setState(() => dF_emergLandingSysUser = value);
+  void _dF_geoFencingChanged(bool value) => setState(() => dF_geoFencing = value);
+  void _dF_2steppropulsionChanged(bool value) => setState(() => dF_2steppropulsion = value);
+  void _cotsChanged(bool value) => setState(() => cots = value);
+  void _zeromarginSafetyChanged(bool value) => setState(() => zeromarginSafety = value);
+
   @override
   Widget build(BuildContext context) {
-
-    bool weightReq = false, pL_passive = false, pL_non_jett = false, pL_approvedConfByOEM = false, UASConf_approved = false, batteryInUAS = false,
-          batteryInController = false, dF_returnHome = false, dF_emergLandingSysUser = false, dF_geoFencing = false,
-          dF_2steppropulsion = false, cots = false, zeromarginSafety = false;
-    void _weightReqChanged(bool value) { setState(() {weightReq = value;});}
-    void _pL_passiveChanged(bool value) => setState(() => pL_passive = value);
-    void _pL_non_jettChanged(bool value) => setState(() => pL_non_jett = value);
-    void _pL_approvedConfByOEMChanged(bool value) => setState(() => pL_approvedConfByOEM = value);
-    void _UASConf_approvedChanged(bool value) => setState(() => UASConf_approved = value);
-    void _batteryInUASChanged(bool value) => setState(() => batteryInUAS = value);
-    void _batteryInControllerChanged(bool value) => setState(() => batteryInController = value);
-    void _dF_returnHomeChanged(bool value) => setState(() => dF_returnHome = value);
-    void _dF_emergLandingSysUserChanged(bool value) => setState(() => dF_emergLandingSysUser = value);
-    void _dF_geoFencingChanged(bool value) => setState(() => dF_geoFencing = value);
-    void _dF_2steppropulsionChanged(bool value) => setState(() => dF_2steppropulsion = value);
-    void _cotsChanged(bool value) => setState(() => cots = value);
-    void _zeromarginSafetyChanged(bool value) => setState(() => zeromarginSafety = value);
-
     return WillPopScope(
         child: DefaultTabController(
           length: 2,
@@ -237,8 +237,8 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
                             children: <Widget>[
                               new CheckboxListTile(
                                 value: weightReq,
-                                onChanged: _weightReqChanged,
                                 title: new Text("Max Take-off Weight 20kg or less"),
+                                onChanged: _weightReqChanged,
                               ),
                               new CheckboxListTile(
                                 value: pL_passive,
