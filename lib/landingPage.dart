@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -177,115 +178,133 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
                       ),
                     ),
                     new Align(
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          new Container(
-                            margin: EdgeInsets.fromLTRB(10, 25, 0, 0),
-                            child: new Text(
-                              "BASELINE REQUIREMENTS",
-                              style: new TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                    new Container(
-                        margin: const EdgeInsets.all(15.0),
-                        padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      child: new Container(
+                        margin: EdgeInsets.fromLTRB(10, 25, 10, 0),
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 0),
                         decoration: BoxDecoration(
                           border: Border.all(color: Colors.blueAccent),
                           borderRadius: new BorderRadius.circular(30.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.red,
+                              ),
+                          ]
                         ),
                         child: new Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new CheckboxListTile(
-                              value: weightReq,
-                              onChanged: _weightReqChanged,
-                              title:
-                                  new Text("Max Take-off Weight 20kg or less"),
-                            ),
-                            new CheckboxListTile(
-                              value: pL_passive,
-                              onChanged: _pL_passiveChanged,
-                              title: new Text("Passive Payload"),
-                            ),
-                            new CheckboxListTile(
-                              value: pL_non_jett,
-                              onChanged: _pL_non_jettChanged,
-                              title: new Text("Payload Non-Jettisonable"),
-                            ),
-                            new CheckboxListTile(
-                              value: pL_approvedConfByOEM,
-                              onChanged: _pL_approvedConfByOEMChanged,
-                              title: new Text("Payload Approved Config by OEM"),
-                            ),
-                            new CheckboxListTile(
-                              value: UASConf_approved,
-                              onChanged: _UASConf_approvedChanged,
-                              title: new Text(
-                                  "UAS Config approved Accessories by OEM"),
-                            ),
-                            new CheckboxListTile(
-                              value: batteryInUAS,
-                              onChanged: _batteryInUASChanged,
-                              title: new Text(
-                                  "Battery(if Lithium) In UAS tested minimum UN 38.3 / UL 1642 or any of the following criteria: IEC62133 / UL 2054 / RTCA DO-311 / RTCA DO-227 / MIL-PRF-29595A"),
-                            ),
-                            new CheckboxListTile(
-                              value: batteryInController,
-                              onChanged: _batteryInControllerChanged,
-                              title: new Text(
-                                  "Battery(if Lithium) In controller tested minimum UN 38.3 / UL 1642 or any of the following criteria: IEC62133 / UL 2054 / RTCA DO-311 / RTCA DO-227 / MIL-PRF-29595A"),
-                            ),
-                            new CheckboxListTile(
-                              value: dF_returnHome,
-                              onChanged: _dF_returnHomeChanged,
-                              title: new Text("Return home feature"),
-                            ),
-                            new CheckboxListTile(
-                              value: dF_emergLandingSysUser,
-                              onChanged: _dF_emergLandingSysUserChanged,
-                              title: new Text("Emergency Landing Feature"),
-                            ),
-                            new CheckboxListTile(
-                              value: dF_geoFencing,
-                              onChanged: _dF_geoFencingChanged,
-                              title: new Text("Geo-fencing Feature"),
-                            ),
-                            new CheckboxListTile(
-                              value: dF_2steppropulsion,
-                              onChanged: _dF_2steppropulsionChanged,
-                              title: new Text(
-                                  "2 steps procedure for propulsion system to activate"),
-                            ),
-                            new CheckboxListTile(
-                              value: cots,
-                              onChanged: _cotsChanged,
-                              title: new Text("Is the UAS a COTS item"),
-                            ),
-                            new CheckboxListTile(
-                              value: zeromarginSafety,
-                              onChanged: _zeromarginSafetyChanged,
-                              title: new Text(
-                                  "Margin of Safety(SF 1.5) for (1)Joint Mechanism between tether to the VTOL UAS, (2)Anchoring Mechanism between the tether and Anchoring Point, (3)tether and (4)Length restraining mechanism(if any) at least 0"),
+                            new Container(
+                              margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                              child: new Text(
+                                "BASELINE REQUIREMENTS",
+                                style: new TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
                             ),
                             new Container(
-                                margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
-                                child: new Text(
-                                    "*DO NOTE THAT ALL IN BASELINE REQUIREMENTS ARE TO BE CHECKED TO BE ACCEPTED FOR REGISTRATION!",
-                                    style: new TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                        fontStyle: FontStyle.italic,
-                                        color: Colors.red))),
-                            new FlatButton(
-                              onPressed: clickable,
-                              child: new Text('Submit Form'),
-                            ),
+                                margin: EdgeInsets.fromLTRB(15, 0, 15, 15),
+                                padding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                decoration: BoxDecoration(
+                                    border: Border.all(color: Colors.blueAccent),
+                                    borderRadius: new BorderRadius.circular(30.0),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.white,
+                                      ),
+                                    ]
+                                ),
+                                child: new Column(
+                                  children: <Widget>[
+                                    new CheckboxListTile(
+                                      value: weightReq,
+                                      onChanged: _weightReqChanged,
+                                      title:
+                                      new Text("Max Take-off Weight 20kg or less"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: pL_passive,
+                                      onChanged: _pL_passiveChanged,
+                                      title: new Text("Passive Payload"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: pL_non_jett,
+                                      onChanged: _pL_non_jettChanged,
+                                      title: new Text("Payload Non-Jettisonable"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: pL_approvedConfByOEM,
+                                      onChanged: _pL_approvedConfByOEMChanged,
+                                      title: new Text("Payload Approved Config by OEM"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: UASConf_approved,
+                                      onChanged: _UASConf_approvedChanged,
+                                      title: new Text(
+                                          "UAS Config approved Accessories by OEM"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: batteryInUAS,
+                                      onChanged: _batteryInUASChanged,
+                                      title: new Text(
+                                          "Battery(if Lithium) In UAS tested minimum UN 38.3 / UL 1642 or any of the following criteria: IEC62133 / UL 2054 / RTCA DO-311 / RTCA DO-227 / MIL-PRF-29595A"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: batteryInController,
+                                      onChanged: _batteryInControllerChanged,
+                                      title: new Text(
+                                          "Battery(if Lithium) In controller tested minimum UN 38.3 / UL 1642 or any of the following criteria: IEC62133 / UL 2054 / RTCA DO-311 / RTCA DO-227 / MIL-PRF-29595A"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: dF_returnHome,
+                                      onChanged: _dF_returnHomeChanged,
+                                      title: new Text("Return home feature"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: dF_emergLandingSysUser,
+                                      onChanged: _dF_emergLandingSysUserChanged,
+                                      title: new Text("Emergency Landing Feature"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: dF_geoFencing,
+                                      onChanged: _dF_geoFencingChanged,
+                                      title: new Text("Geo-fencing Feature"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: dF_2steppropulsion,
+                                      onChanged: _dF_2steppropulsionChanged,
+                                      title: new Text(
+                                          "2 steps procedure for propulsion system to activate"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: cots,
+                                      onChanged: _cotsChanged,
+                                      title: new Text("Is the UAS a COTS item"),
+                                    ),
+                                    new CheckboxListTile(
+                                      value: zeromarginSafety,
+                                      onChanged: _zeromarginSafetyChanged,
+                                      title: new Text(
+                                          "Margin of Safety(SF 1.5) for (1)Joint Mechanism between tether to the VTOL UAS, (2)Anchoring Mechanism between the tether and Anchoring Point, (3)tether and (4)Length restraining mechanism(if any) at least 0"),
+                                    ),
+                                    new Container(
+                                        margin: EdgeInsets.fromLTRB(15, 0, 15, 0),
+                                        child: new Text(
+                                            "*DO NOTE THAT ALL IN BASELINE REQUIREMENTS ARE TO BE CHECKED TO BE ACCEPTED FOR REGISTRATION!",
+                                            style: new TextStyle(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.bold,
+                                                fontStyle: FontStyle.italic,
+                                                color: Colors.red))),
+                                    new FlatButton(
+                                      onPressed: clickable,
+                                      child: new Text('Submit Form'),
+                                    ),
+                                  ],
+                                ))
                           ],
-                        ))
+                        ),
+                      ),
+                    )
                   ],
                 )))
               ])),
