@@ -90,39 +90,38 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
   void _zeromarginSafetyChanged(bool value) =>
       setState(() => zeromarginSafety = value);
 
+  void clickable() {
+    if (weightReq &&
+        pL_passive &&
+        pL_non_jett &&
+        pL_approvedConfByOEM &&
+        UASConf_approved &&
+        batteryInUAS &&
+        batteryInController &&
+        dF_returnHome &&
+        dF_emergLandingSysUser &&
+        dF_geoFencing &&
+        dF_2steppropulsion &&
+        cots &&
+        zeromarginSafety) {
+      Fluttertoast.showToast(
+          msg: "Successful Submission",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1
+      );
+    } else {
+      Fluttertoast.showToast(
+          msg: "Unsuccessful Submission",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIos: 1
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    
-    clickable() {
-      if (weightReq &&
-          pL_passive &&
-          pL_non_jett &&
-          pL_approvedConfByOEM &&
-          UASConf_approved &&
-          batteryInUAS &&
-          batteryInController &&
-          dF_returnHome &&
-          dF_emergLandingSysUser &&
-          dF_geoFencing &&
-          dF_2steppropulsion &&
-          cots &&
-          zeromarginSafety) {
-        Fluttertoast.showToast(
-        msg: "Successful Submission",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1
-    );
-      } else {
-        Fluttertoast.showToast(
-        msg: "Unsuccessful Submission",
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.CENTER,
-        timeInSecForIos: 1
-    );
-      }
-    }
-
     return WillPopScope(
         child: DefaultTabController(
           length: 2,
@@ -322,15 +321,26 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
                                           child: new Column(
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              new Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: <Widget>[
-                                                  new Container(
-                                                    margin: EdgeInsets.fromLTRB(0,10,0,15),
+                                              new Container(
+                                                  margin: EdgeInsets.fromLTRB(0,10,0,10),
                                                   child: new Text("General Specs", style: new TextStyle(fontSize: 15, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),)
-                                                  )],
                                               ),
-                                              new Text("UAS Planar Physical Area (m), see red box"),
+                                              new Container(
+                                                margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                                                child: new TextField(
+                                                  textAlign: TextAlign.start,
+                                                  style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18.0,
+                                                  ),
+                                                  keyboardType: TextInputType.number,
+                                                  cursorColor: Colors.blue,
+                                                  decoration: new InputDecoration(
+                                                    labelText: 'UAS Planar Physical Area (m), see red box',
+                                                    hintText: 'Area(m)',
+                                                  ),
+                                                ),
+                                              ),
                                               new TextField(
                                                 textAlign: TextAlign.start,
                                                 style: TextStyle(
@@ -340,8 +350,21 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
                                                 keyboardType: TextInputType.number,
                                                 cursorColor: Colors.blue,
                                                 decoration: new InputDecoration(
-                                                  labelText: 'Area',
-                                                  hintText: 'Area(m)',
+                                                  labelText: 'UAS Drag Coefficient(0.9 if unknown)',
+                                                  hintText: 'Cd(-)',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Maximum Thrust',
+                                                  hintText: '(N)',
                                                 ),
                                               )
                                             ],
