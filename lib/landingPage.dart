@@ -8,24 +8,26 @@ class UASRegistered extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'UAS Reg',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: RegisteredUASPage(title: 'Registered UAS'),
+      home: RegisteredUASPage(),
     );
   }
 }
 
 class RegisteredUASPage extends StatefulWidget {
-  RegisteredUASPage({Key key, this.title}) : super(key: key);
-  final String title;
-
   @override
   _RegisteredUASPage createState() => _RegisteredUASPage();
 }
 
-class _RegisteredUASPage extends State<RegisteredUASPage> {
+class Tabs {
+  final String title;
+  final IconData icon;
+  Tabs({this.title,this.icon});
+}
+
+class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderStateMixin{
   TabController _controller;
 
   Future<bool> _onWillPop() async {
@@ -120,6 +122,24 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
     }
   }
 
+  final List<Tabs> _tabs = [new Tabs(title: "Registered UAS", icon: new IconData(58826, fontFamily: 'MaterialIcons')),
+    new Tabs(title: "Registration", icon: IconData(57680, fontFamily: 'MaterialIcons'))
+  ];
+
+  Tabs _myHandler ;
+
+  void initState() {
+    super.initState();
+    _controller = new TabController(length: 2, vsync: this);
+    _myHandler = _tabs[0];
+    _controller.addListener(_handleSelected);
+  }
+  void _handleSelected() {
+    setState(() {
+      _myHandler= _tabs[_controller.index];
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -127,12 +147,12 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
           length: 2,
           child: new Scaffold(
               appBar: AppBar(
-                title: Text(widget.title),
+                title: Text(_myHandler.title),
                 bottom: new TabBar(
                   controller: _controller,
                   tabs: <Widget>[
-                    new Tab(icon: new Icon(Icons.check)),
-                    new Tab(icon: new Icon(Icons.create)),
+                    new Tab(icon: new Icon(_tabs[0].icon)),
+                    new Tab(icon: new Icon(_tabs[1].icon))
                   ],
                 ),
               ),
