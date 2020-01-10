@@ -48,49 +48,50 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
         false;
   }
 
+  bool weightReq = false,
+      pL_passive = false,
+      pL_non_jett = false,
+      pL_approvedConfByOEM = false,
+      UASConf_approved = false,
+      batteryInUAS = false,
+      batteryInController = false,
+      dF_returnHome = false,
+      dF_emergLandingSysUser = false,
+      dF_geoFencing = false,
+      dF_2steppropulsion = false,
+      cots = false,
+      zeromarginSafety = false;
+  void _weightReqChanged(bool value) {
+    setState(() {
+      weightReq = value;
+    });
+  }
+
+  void _pL_passiveChanged(bool value) => setState(() => pL_passive = value);
+  void _pL_non_jettChanged(bool value) => setState(() => pL_non_jett = value);
+  void _pL_approvedConfByOEMChanged(bool value) =>
+      setState(() => pL_approvedConfByOEM = value);
+  void _UASConf_approvedChanged(bool value) =>
+      setState(() => UASConf_approved = value);
+  void _batteryInUASChanged(bool value) =>
+      setState(() => batteryInUAS = value);
+  void _batteryInControllerChanged(bool value) =>
+      setState(() => batteryInController = value);
+  void _dF_returnHomeChanged(bool value) =>
+      setState(() => dF_returnHome = value);
+  void _dF_emergLandingSysUserChanged(bool value) =>
+      setState(() => dF_emergLandingSysUser = value);
+  void _dF_geoFencingChanged(bool value) =>
+      setState(() => dF_geoFencing = value);
+  void _dF_2steppropulsionChanged(bool value) =>
+      setState(() => dF_2steppropulsion = value);
+  void _cotsChanged(bool value) => setState(() => cots = value);
+  void _zeromarginSafetyChanged(bool value) =>
+      setState(() => zeromarginSafety = value);
+
   @override
   Widget build(BuildContext context) {
-    bool weightReq = false,
-        pL_passive = false,
-        pL_non_jett = false,
-        pL_approvedConfByOEM = false,
-        UASConf_approved = false,
-        batteryInUAS = false,
-        batteryInController = false,
-        dF_returnHome = false,
-        dF_emergLandingSysUser = false,
-        dF_geoFencing = false,
-        dF_2steppropulsion = false,
-        cots = false,
-        zeromarginSafety = false;
-    void _weightReqChanged(bool value) {
-      setState(() {
-        weightReq = value;
-      });
-    }
-
-    void _pL_passiveChanged(bool value) => setState(() => pL_passive = value);
-    void _pL_non_jettChanged(bool value) => setState(() => pL_non_jett = value);
-    void _pL_approvedConfByOEMChanged(bool value) =>
-        setState(() => pL_approvedConfByOEM = value);
-    void _UASConf_approvedChanged(bool value) =>
-        setState(() => UASConf_approved = value);
-    void _batteryInUASChanged(bool value) =>
-        setState(() => batteryInUAS = value);
-    void _batteryInControllerChanged(bool value) =>
-        setState(() => batteryInController = value);
-    void _dF_returnHomeChanged(bool value) =>
-        setState(() => dF_returnHome = value);
-    void _dF_emergLandingSysUserChanged(bool value) =>
-        setState(() => dF_emergLandingSysUser = value);
-    void _dF_geoFencingChanged(bool value) =>
-        setState(() => dF_geoFencing = value);
-    void _dF_2steppropulsionChanged(bool value) =>
-        setState(() => dF_2steppropulsion = value);
-    void _cotsChanged(bool value) => setState(() => cots = value);
-    void _zeromarginSafetyChanged(bool value) =>
-        setState(() => zeromarginSafety = value);
-
+    
     clickable() {
       if (weightReq &&
           pL_passive &&
@@ -279,7 +280,7 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
                                         fontWeight: FontWeight.bold,
                                         fontStyle: FontStyle.italic,
                                         color: Colors.red))),
-                            FlatButton(
+                            new FlatButton(
                               onPressed: clickable,
                               child: new Text('Submit Form'),
                             ),
