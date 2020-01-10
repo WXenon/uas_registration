@@ -156,7 +156,9 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                   ],
                 ),
               ),
-              body: new TabBarView(children: [
+              body: new TabBarView(
+                  controller: _controller,
+                  children: [
                 new Center(
                     child: new Column(children: <Widget>[
                   new Container(
