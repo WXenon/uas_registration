@@ -318,10 +318,6 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                                                           fontWeight: FontWeight.bold,
                                                           fontStyle: FontStyle.italic,
                                                           color: Colors.red))),
-                                              new FlatButton(
-                                                onPressed: clickable,
-                                                child: new Text('Submit Form'),
-                                              )
                                             ]
                                           )
                                       ),
@@ -335,7 +331,7 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                                         new Text("SPECIFICATIONS", style: new TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
                                         new Container(
                                             margin: EdgeInsets.fromLTRB(0, 5, 0, 15),
-                                            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                                            padding: EdgeInsets.fromLTRB(15, 10, 15, 25),
                                             decoration: BoxDecoration(
                                                 border: Border.all(color: Colors.blueAccent),
                                                 borderRadius: new BorderRadius.circular(30.0),
@@ -358,8 +354,8 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                                                   keyboardType: TextInputType.number,
                                                   cursorColor: Colors.blue,
                                                   decoration: new InputDecoration(
-                                                    labelText: 'UAS Planar Physical Area (m), see red box',
-                                                    hintText: 'Area(m)',
+                                                    labelText: 'UAS Planar Physical Area (m)',
+                                                    hintText: 'See red box',
                                                   ),
                                                 ),
                                               ),
@@ -372,8 +368,8 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                                                 keyboardType: TextInputType.number,
                                                 cursorColor: Colors.blue,
                                                 decoration: new InputDecoration(
-                                                  labelText: 'UAS Drag Coefficient(0.9 if unknown)',
-                                                  hintText: 'Cd(-)',
+                                                  labelText: 'UAS Drag Coefficient((Cd(-))',
+                                                  hintText: '0.9 if unknown',
                                                 ),
                                               ),
                                               new TextField(
@@ -385,11 +381,315 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                                                 keyboardType: TextInputType.number,
                                                 cursorColor: Colors.blue,
                                                 decoration: new InputDecoration(
-                                                  labelText: 'Maximum Thrust',
+                                                  labelText: 'Maximum Thrust(N)',
                                                   hintText: '(N)',
                                                 ),
-                                              )
+                                              ),
+                                              new Container(
+                                                  margin: EdgeInsets.fromLTRB(0,20,0,10),
+                                                  child: new Text("Propeller Specs", style: new TextStyle(fontSize: 15, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),)
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Propeller Diameter(m)',
+                                                  hintText: '(m)',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Propeller Weight (kg)',
+                                                  hintText: '(kg)',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Number of Blade per Propeller',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Propeller RPM(RPM)',
+                                                  hintText: '(RPM)',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Propeller Drag Coefficient(Cd(-))',
+                                                  hintText: '0.5 if unknown',
+                                                ),
+                                              ),
+                                              new Container(
+                                                  margin: EdgeInsets.fromLTRB(0,20,0,10),
+                                                  child: new Text("GPS Specs", style: new TextStyle(fontSize: 15, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),)
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Max GPS Vertical Error (m)',
+                                                  hintText: '0.7m if unknown',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Max GPS Horizontal Error(m)',
+                                                  hintText: '7.8m if unknown',
+                                                ),
+                                              ),
+                                              new Container(
+                                                  margin: EdgeInsets.fromLTRB(0,20,0,10),
+                                                  child: new Text("Battery Specs", style: new TextStyle(fontSize: 15, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),)
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.text,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Model',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.text,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Type',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.text,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Certification Standard',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Approx Maximum Flight Time (mins)',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Capacity (mAh)',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Voltage (V)',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Energy (Wh)',
+                                                  hintText: '(Capacity/1000) x Voltage',
+                                                ),
+                                              ),
+                                              new Container(
+                                                  margin: EdgeInsets.fromLTRB(0,20,0,10),
+                                                  child: new Text("Tether Specs", style: new TextStyle(fontSize: 15, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),)
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.text,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'OEM of Tethered System',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.text,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Material of the Tether',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Rated/Tested Strength of Tether',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.text,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Anchoring Mechanism between Tether and Anchoring Point',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.text,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Joint Mechanism between the Tether and UAS',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Rated/Tested Strength o Anchoring Mechanism between Tether and Anchoing Point',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.number,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Rated/Tested Strength of Joint Mechanism between Tether and UAS',
+                                                ),
+                                              ),
+                                              new TextField(
+                                                textAlign: TextAlign.start,
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 18.0,
+                                                ),
+                                                keyboardType: TextInputType.text,
+                                                cursorColor: Colors.blue,
+                                                decoration: new InputDecoration(
+                                                  labelText: 'Mechanism/Method in restraining Deployed Tether Length',
+                                                ),
+                                              ),
                                             ],
+                                          )
+                                        ),
+                                        new Container(
+                                            margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                                            padding: EdgeInsets.fromLTRB(134, 0, 134, 0),
+                                            decoration: BoxDecoration(
+                                                border: Border.all(color: Colors.blueAccent),
+                                                borderRadius: new BorderRadius.circular(30.0),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.cyanAccent,
+                                                  ),
+                                                ]
+                                            ),
+                                          child: new FlatButton(
+                                            onPressed: clickable,
+                                            child: new Text('Submit Form'),
                                           )
                                         )
                                       ],
