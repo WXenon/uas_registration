@@ -675,34 +675,33 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                                             ],
                                           )
                                         ),
-                                        new Container(
-                                            margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                                            padding: EdgeInsets.fromLTRB(134, 0, 134, 0),
-                                            decoration: BoxDecoration(
-                                                border: Border.all(color: Colors.blueAccent),
-                                                borderRadius: new BorderRadius.circular(30.0),
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    color: Colors.cyanAccent,
-                                                  ),
-                                                ]
-                                            ),
-                                          child: new FlatButton(
-                                            onPressed: clickable,
-                                            child: new Text('Submit Form'),
+                                        new InkWell(
+                                          onTap: clickable,
+                                          child: new Container(
+                                              margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
+                                              padding: EdgeInsets.fromLTRB(147.5, 20, 147.5, 20),
+                                              decoration: BoxDecoration(
+                                                  border: Border.all(color: Colors.blueAccent),
+                                                  borderRadius: new BorderRadius.circular(30.0),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      color: Colors.cyanAccent,
+                                                    ),
+                                                  ]
+                                              ),
+
+                                            child: new Text("Submit Form", style: new TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline),)
                                           )
                                         )
-                                      ],
-                                    )
-                                  )
-                                ]
+                                      ])
+                                  )],
                               )
                             )
                           ]
                         )
                     )
-                )
-              ])
+                )]
+              )
           )
         ),
         onWillPop: _onWillPop);
