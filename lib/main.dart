@@ -105,8 +105,6 @@ class _LoginPage extends State<LoginPage> {
   }
 }//login page logic
 
-<<<<<<< HEAD
-=======
 //start of 2nd page after login
 
 class UASRegistered extends StatelessWidget {
@@ -351,4 +349,3 @@ class _RegisteredUASPage extends State<RegisteredUASPage> {
         ),
         onWillPop: _onWillPop);}
 }
->>>>>>> 33f960ea713edd266efbd3cbc22b15889108a22b
