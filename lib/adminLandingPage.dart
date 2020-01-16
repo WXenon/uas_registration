@@ -122,7 +122,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
     }
   }
 
-  final List<Tabs> _tabs = [//new Tabs(title: "Pending registration", icon: new IconData(codePoint))
+  final List<Tabs> _tabs = [new Tabs(title: "Pending registration", icon: new IconData(57686, fontFamily: 'MaterialIcons')),
     new Tabs(title: "Registered UAS", icon: new IconData(58826, fontFamily: 'MaterialIcons')),
     new Tabs(title: "Registration", icon: IconData(57680, fontFamily: 'MaterialIcons'))
   ];
@@ -153,13 +153,15 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                     controller: _controller,
                     tabs: <Widget>[
                       new Tab(icon: new Icon(_tabs[0].icon)),
-                      new Tab(icon: new Icon(_tabs[1].icon))
+                      new Tab(icon: new Icon(_tabs[1].icon)),
+                      new Tab(icon: new Icon(_tabs[2].icon))
                     ],
                   ),
                 ),
                 body: new TabBarView(
                     controller: _controller,
                     children: [
+                      new Center(),
                       new Center(
                           child: new Column(children: <Widget>[
                             new Container(
