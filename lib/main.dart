@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'landingPage.dart';
+import 'userLandingPage.dart';
+import 'adminLandingPage.dart';
 
 void main() => runApp(UASReg());
 
@@ -28,7 +29,20 @@ class LoginPage extends StatefulWidget {
   _LoginPage createState() => _LoginPage();
 }//login page interface
 
+
+
 class _LoginPage extends State<LoginPage> {
+
+  String username = "", password = "";
+
+  void login(String username, String password){
+    if(username == "admin"){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => UASRegisteredAdmin()),);
+    }else{
+      Navigator.push(context, MaterialPageRoute(builder: (context) => UASRegistered()),);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
