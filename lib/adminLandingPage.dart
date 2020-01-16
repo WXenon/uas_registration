@@ -131,7 +131,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
 
   void initState() {
     super.initState();
-    _controller = new TabController(length: 2, vsync: this);
+    _controller = new TabController(length: 3, vsync: this);
     _myHandler = _tabs[0];
     _controller.addListener(_handleSelected);
   }
