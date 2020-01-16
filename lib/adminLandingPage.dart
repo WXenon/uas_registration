@@ -145,7 +145,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
   Widget build(BuildContext context) {
     return WillPopScope(
         child: DefaultTabController(
-            length: 2,
+            length: 3,
             child: new Scaffold(
                 appBar: AppBar(
                   title: Text(_myHandler.title),
