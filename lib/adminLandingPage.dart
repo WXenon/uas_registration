@@ -161,7 +161,9 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                 body: new TabBarView(
                     controller: _controller,
                     children: [
-                      new Center(),
+                      new Center(
+                        //enter pending approvals here
+                      ),
                       new Center(
                           child: new Column(children: <Widget>[
                             new Container(

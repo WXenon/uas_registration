@@ -3,6 +3,8 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'userLandingPage.dart';
 import 'adminLandingPage.dart';
+import 'package:js/js.dart' as js;
+import 'sqltest.js' as database;
 
 void main() => runApp(UASReg());
 
@@ -33,7 +35,7 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPage extends State<LoginPage> {
 
-  String username = "", password = "";
+  TextEditingController usernameController = new TextEditingController(), pwdController = new TextEditingController();
 
   void login(String username, String password){
     if(username == "admin"){
@@ -57,6 +59,7 @@ class _LoginPage extends State<LoginPage> {
               child: new Container(
                 margin: EdgeInsets.all(32.0),
                   child: new TextField(
+                      controller: usernameController,
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: Colors.black,
@@ -76,6 +79,7 @@ class _LoginPage extends State<LoginPage> {
                 child: new Container(
                     margin: EdgeInsets.fromLTRB(32, 0, 32, 32),
                     child: new TextField(
+                        controller: pwdController,
                         textAlign: TextAlign.start,
                         obscureText: true,
                         style: TextStyle(
@@ -100,7 +104,7 @@ class _LoginPage extends State<LoginPage> {
                         child: new Container(
                           margin: EdgeInsets.fromLTRB(0, 0, 70, 0),
                           child: new RaisedButton(onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => UASRegistered()),);
+                            login(usernameController.text, pwdController.text);
                           }, child: new Text('Login')),
                         )
                     ),
