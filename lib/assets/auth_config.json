@@ -1,0 +1,16 @@
+{
+  "client_id" : "5ef2ae0e-b02f-42a4-814e-51a33bda4eaf",
+  "authorization_user_agent" : "DEFAULT",
+  "redirect_uri" : "msauth://com.swiftoffice.uasr.uas_registration/Gx%2BXLZ6r10Zlz6tTJ6KT85e8qeU%3D",
+  "ios_redirect_uri": "msauth.com.swiftoffice.uasr.uasRegistration://auth",
+  "account_mode": "SINGLE",
+  "authorities" : [
+    {
+      "type": "AAD",
+      "audience": {
+       "type": "AzureADMultipleOrgs",
+       "tenant_id": "organizations"
+      }
+    }
+  ]
+}

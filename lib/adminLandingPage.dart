@@ -344,6 +344,18 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                           child: new Column(
                                                             crossAxisAlignment: CrossAxisAlignment.start,
                                                             children: <Widget>[
+                                                              new TextField(
+                                                                textAlign: TextAlign.start,
+                                                                style: TextStyle(
+                                                                  color: Colors.black,
+                                                                  fontSize: 14.0,
+                                                                ),
+                                                                keyboardType: TextInputType.number,
+                                                                cursorColor: Colors.blue,
+                                                                decoration: new InputDecoration(
+                                                                  labelText: 'Name of UAS',
+                                                                ),
+                                                              ),
                                                               new Container(
                                                                   margin: EdgeInsets.fromLTRB(0,10,0,10),
                                                                   child: new Text("General Specs", style: new TextStyle(fontSize: 15, fontWeight: FontWeight.bold, decoration: TextDecoration.underline),)
@@ -354,7 +366,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                   textAlign: TextAlign.start,
                                                                   style: TextStyle(
                                                                     color: Colors.black,
-                                                                    fontSize: 18.0,
+                                                                    fontSize: 14.0,
                                                                   ),
                                                                   keyboardType: TextInputType.number,
                                                                   cursorColor: Colors.blue,
@@ -368,7 +380,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -381,7 +393,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -398,7 +410,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -411,7 +423,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -424,7 +436,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -436,7 +448,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -449,7 +461,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -466,7 +478,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -479,7 +491,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -496,7 +508,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.text,
                                                                 cursorColor: Colors.blue,
@@ -508,7 +520,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.text,
                                                                 cursorColor: Colors.blue,
@@ -520,7 +532,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.text,
                                                                 cursorColor: Colors.blue,
@@ -532,7 +544,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -544,7 +556,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -556,7 +568,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -568,7 +580,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -585,7 +597,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.text,
                                                                 cursorColor: Colors.blue,
@@ -597,7 +609,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.text,
                                                                 cursorColor: Colors.blue,
@@ -609,7 +621,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
@@ -621,60 +633,60 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.text,
                                                                 cursorColor: Colors.blue,
                                                                 decoration: new InputDecoration(
-                                                                  labelText: 'Anchoring Mechanism between Tether and Anchoring Point',
+                                                                  labelText: 'Anchoring btw Tether and Anchoring Point',
                                                                 ),
                                                               ),
                                                               new TextField(
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.text,
                                                                 cursorColor: Colors.blue,
                                                                 decoration: new InputDecoration(
-                                                                  labelText: 'Joint Mechanism between the Tether and UAS',
+                                                                  labelText: 'Joint btw the Tether and UAS',
                                                                 ),
                                                               ),
                                                               new TextField(
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
                                                                 decoration: new InputDecoration(
-                                                                  labelText: 'Rated/Tested Strength o Anchoring Mechanism between Tether and Anchoing Point',
+                                                                  labelText: 'Strength of Anchor btw Tether and Anchor Point',
                                                                 ),
                                                               ),
                                                               new TextField(
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.number,
                                                                 cursorColor: Colors.blue,
                                                                 decoration: new InputDecoration(
-                                                                  labelText: 'Rated/Tested Strength of Joint Mechanism between Tether and UAS',
+                                                                  labelText: 'Strength of Joint btw Tether and UAS',
                                                                 ),
                                                               ),
                                                               new TextField(
                                                                 textAlign: TextAlign.start,
                                                                 style: TextStyle(
                                                                   color: Colors.black,
-                                                                  fontSize: 18.0,
+                                                                  fontSize: 14.0,
                                                                 ),
                                                                 keyboardType: TextInputType.text,
                                                                 cursorColor: Colors.blue,
                                                                 decoration: new InputDecoration(
-                                                                  labelText: 'Mechanism/Method in restraining Deployed Tether Length',
+                                                                  labelText: 'Method restraining Deployed Tether Length',
                                                                 ),
                                                               ),
                                                             ],

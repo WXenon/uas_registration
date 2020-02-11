@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'userLandingPage.dart';
 import 'adminLandingPage.dart';
-import 'package:js/js.dart' as js;
-import 'sqltest.js' as database;
+import 'package:url_launcher/url_launcher.dart';
+import 'package:http/http.dart' as http;
+//import 'package:msal_mobile/msal_mobile.dart';
 
 void main() => runApp(UASReg());
 
@@ -37,12 +40,53 @@ class _LoginPage extends State<LoginPage> {
 
   TextEditingController usernameController = new TextEditingController(), pwdController = new TextEditingController();
 
-  void login(String username, String password){
-    if(username == "admin"){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => UASRegisteredAdmin()),);
-    }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context) => UASRegistered()),);
+//  MsalMobile msal;
+//
+//  @override
+//  void initState() {
+//    super.initState();
+//    MsalMobile.create('assets/auth_config.json', "https://login.microsoftonline.com/Organizations").then((client) {
+//      setState(() {
+//        msal = client;
+//      });
+//    });
+//  }
+
+  _launchURL() async {
+    final url = 'https://uasrdblogin.azurewebsites.net';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
     }
+  }
+
+  bool loginSuccess(String username, String password){
+    bool success = false;
+    http
+        .post("https://uasrdblogin.azurewebsites.net",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: json.encode({
+          "username": username,
+        }))
+        .then((onValue) {
+      Map<String, dynamic> response =
+      json.decode(onValue.body);
+      if (password == response.toString()){
+        success = true;
+      }
+      return success;
+    });
+  }
+
+  void login(String username, String password){
+//    if(loginSuccess(username, password)){
+//      Navigator.push(context, MaterialPageRoute(builder: (context) => UASRegisteredAdmin()),);
+//    }else{
+      Navigator.push(context, MaterialPageRoute(builder: (context) => UASRegistered()),);
+//    }
   }
 
   @override
