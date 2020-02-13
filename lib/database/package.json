@@ -1,0 +1,13 @@
+{
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "dependencies": {
+    "adal-node": "^0.2.1",
+    "express": "^4.17.1",
+    "msal": "^1.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
