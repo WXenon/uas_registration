@@ -6,7 +6,6 @@ import 'userLandingPage.dart';
 import 'adminLandingPage.dart';
 import 'package:http/http.dart' as http;
 import 'package:msal_mobile/msal_mobile.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -134,7 +133,7 @@ class _LoginPage extends State<LoginPage> {
   }
 
   login() async{
-    await msal.signIn(null, ["api://fc418f16-5c93-437d-b743-05e9e2a04d93/signin"]).then((result) async{
+    await msal.signIn(null, ["api://70ae9620-bbbf-4a83-92cd-198eb3ed3d29/signin"]).then((result) async{
       if (result.cancelled) {
         _status = AuthStatus.UNAUTHENTICATED;
       } else if (result.success) {
