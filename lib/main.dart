@@ -9,7 +9,9 @@ import 'package:msal_mobile/msal_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
-import 'msal_p'
+import 'package:shared_preferences/shared_preferences.dart';
+
+enum AuthStatus { VERIFYING, UNAUTHENTICATED, AUTHENTICATED_USER }
 
 void main() => runApp(UASReg());
 
@@ -36,69 +38,139 @@ class LoginPage extends StatefulWidget {
   _LoginPage createState() => _LoginPage();
 }//login page interface
 
+class MsalToken {
+  final String name;
+  final String email;
+  final String jwt;
 
+  MsalToken({this.name, this.email, this.jwt});
+
+  Future<void> store() async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.setString('user_token', jwt);
+  }
+
+  Future<String> token() async {
+    var prefs = await SharedPreferences.getInstance();
+    return prefs.getString('user_token');
+  }
+
+  Future<void> remove() async {
+    var prefs = await SharedPreferences.getInstance();
+    await prefs.remove('user_token');
+  }
+
+  factory MsalToken.fromJwt(String jwt) {
+    final jwtParts = jwt.split('.');
+    var jwtPayload = base64Url.normalize(jwtParts[1]);
+    var decodedToken = json.decode(utf8.fuse(base64Url).decode(jwtPayload));
+    return MsalToken(
+        name: decodedToken['name'], email: decodedToken['upn'], jwt: jwt);
+  }
+}
 
 class _LoginPage extends State<LoginPage> {
 
   TextEditingController usernameController = new TextEditingController(), pwdController = new TextEditingController();
 
   MsalMobile msal;
+  AuthStatus _status = AuthStatus.UNAUTHENTICATED;
+  MsalToken _msalToken;
 
   @override
   void initState() {
     super.initState();
-    MsalMobile.create('assets/auth_config.json', "https://login.microsoftonline.com/Organizations").then((client) {
+    MsalMobile.create('assets/auth_config.json', 'https://login.microsoftonline.com/fc418f16-5c93-437d-b743-05e9e2a04d93').then((client) {
       setState(() {
         msal = client;
+        login();
       });
     });
   }
 
-  _launchURL() async {
-    final url = 'https://uasrdblogin.azurewebsites.net';
-    if (await canLaunch(url)) {
-      await launch(url);
+//  _launchURL() async {
+//    final url = 'https://uasrdblogin.azurewebsites.net';
+//    if (await canLaunch(url)) {
+//      await launch(url);
+//    } else {
+//      throw 'Could not launch $url';
+//    }
+//  }
+
+//  bool loginSuccess(String username, String password){
+//    bool success = false;
+//    http
+//        .post("https://uasrdblogin.azurewebsites.net",
+//        headers: {
+//          "Content-type": "application/json"
+//        },
+//        body: json.encode({
+//          "username": username,
+//        }))
+//        .then((onValue) {
+//      Map<String, dynamic> response =
+//      json.decode(onValue.body);
+//      if (password == response.toString()){
+//        success = true;
+//      }
+//      return success;
+//    });
+//  }
+
+  void _msalErrorHandler(exception, {Function callback}) {
+    if (exception is MsalMobileException) {
+      print(exception.errorCode);
+      print(exception.message);
+      if (exception.innerException != null) {
+        print(exception.innerException.errorCode);
+        print(exception.innerException.message);
+      }
+      if (callback != null) {
+        callback();
+      }
     } else {
-      throw 'Could not launch $url';
+      print('exception occurred');
     }
   }
 
-  bool loginSuccess(String username, String password){
-    bool success = false;
-    http
-        .post("https://uasrdblogin.azurewebsites.net",
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: json.encode({
-          "username": username,
-        }))
-        .then((onValue) {
-      Map<String, dynamic> response =
-      json.decode(onValue.body);
-      if (password == response.toString()){
-        success = true;
+  login() async{
+    await msal.signIn(null, ["api://fc418f16-5c93-437d-b743-05e9e2a04d93/signin"]).then((result) async{
+      if (result.cancelled) {
+        _status = AuthStatus.UNAUTHENTICATED;
+      } else if (result.success) {
+        _status = AuthStatus.AUTHENTICATED_USER;
+        var pref = await SharedPreferences.getInstance();
+        await pref.setString('user_type', 'user');
+        _msalToken = MsalToken.fromJwt(result.accessToken);
+        await _msalToken.store();
       }
-      return success;
-    });
+    }).catchError((exception) => _msalErrorHandler(exception, callback: () {
+      //exception.errorcode.toString.contains('already'
+      if (exception.errorCode.toString().contains('already')) {
+        _status = AuthStatus.AUTHENTICATED_USER;
+      } else {
+        _status = AuthStatus.UNAUTHENTICATED;
+        }
+      }
+    )
+    );
   }
 
-  void login(String username, String password){
+//  void login(String username, String password){
 //    if(loginSuccess(username, password)){
 //      Navigator.push(context, MaterialPageRoute(builder: (context) => UASRegisteredAdmin()),);
 //    }else{
-      Navigator.push(context, MaterialPageRoute(builder: (context) => UASRegistered()),);
+//      Navigator.push(context, MaterialPageRoute(builder: (context) => UASRegistered()),);
 //    }
-  }
+//  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ,
-//      appBar: AppBar(
-//        title: Text(widget.title),
-//      ),
-//      body: Center(
+      appBar: AppBar(
+        title: Text(widget.title),
+      ),
+      body: Center(
 //        child: Column(
 //          mainAxisAlignment: MainAxisAlignment.start,
 //          children: <Widget>[
@@ -165,7 +237,7 @@ class _LoginPage extends State<LoginPage> {
 //            )
 //          ],
 //        ),
-//      ),
+      ),
     );
   }
 }//login page logic

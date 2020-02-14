@@ -1,7 +1,7 @@
 {
   "client_id" : "11bad5e4-db65-4a2f-b8e5-24e93e232ff5",
   "authorization_user_agent" : "DEFAULT",
-  "redirect_uri" : "msauth://com.swiftoffice.uasr.uas_registration/Gx%2BXLZ6r10Zlz6tTJ6KT85e8qeU%3D",
+  "redirect_uri" : "msauth://com.swiftoffice.uasr.uas_registration/Gx+XLZ6r10Zlz6tTJ6KT85e8qeU=",
   "ios_redirect_uri": "msauth.com.swiftoffice.uasr.uasRegistration://auth",
   "account_mode": "SINGLE",
   "authorities" : [
@@ -9,7 +9,7 @@
       "type": "AAD",
       "audience": {
        "type": "AzureADMultipleOrgs",
-       "tenant_id": "organizations"
+       "tenant_id": "fc418f16-5c93-437d-b743-05e9e2a04d93"
       }
     }
   ]
