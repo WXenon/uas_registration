@@ -3,6 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:progress_dialog/progress_dialog.dart';
+import 'package:msal_mobile/msal_mobile.dart';
+import 'package:uas_registration/providers/msal_provider.dart';
+import 'dart:io';
 
 class UASRegistered extends StatelessWidget {
   @override
@@ -28,28 +35,31 @@ class Tabs {
 }
 
 class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderStateMixin{
+  final _formKey = GlobalKey<FormState>();
+  ProgressDialog pd;
+  MsalMobile msal;
   TabController _controller;
 
-  Future<bool> _onWillPop() async {
-    return (await showDialog(
-          context: context,
-          builder: (context) => new AlertDialog(
-            title: new Text('Are you sure?'),
-            content: new Text('Do you want to exit an App'),
-            actions: <Widget>[
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(false),
-                child: new Text('No'),
-              ),
-              new FlatButton(
-                onPressed: () => Navigator.of(context).pop(true),
-                child: new Text('Yes'),
-              ),
-            ],
-          ),
-        )) ??
-        false;
-  }
+//  Future<bool> _onWillPop() async {
+//    return (await showDialog(
+//          context: context,
+//          builder: (context) => new AlertDialog(
+//            title: new Text('Are you sure?'),
+//            content: new Text('Do you want to exit an App'),
+//            actions: <Widget>[
+//              new FlatButton(
+//                onPressed: () => Navigator.of(context).pop(false),
+//                child: new Text('No'),
+//              ),
+//              new FlatButton(
+//                onPressed: () => Navigator.of(context).pop(true),
+//                child: new Text('Yes'),
+//              ),
+//            ],
+//          ),
+//        )) ??
+//        false;
+//  }
 
   bool weightReq = false,
       pL_passive = false,
@@ -142,12 +152,36 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
 
   @override
   Widget build(BuildContext context) {
+    pd = new ProgressDialog(context);
+    pd.style(
+        message: 'Signing In',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: CircularProgressIndicator(),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+        progress: 0.0,
+        maxProgress: 100.0,
+        progressTextStyle: TextStyle(
+            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+        messageTextStyle: TextStyle(
+            color: Colors.black, fontSize: 19.0, fontWeight: FontWeight.w600));
     return WillPopScope(
+        onWillPop: () => SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
         child: DefaultTabController(
           length: 2,
           child: new Scaffold(
               appBar: AppBar(
                 title: Text(_myHandler.title),
+                actions: <Widget>[
+                  FlatButton(
+                      child: new Text("Logout"),
+                      onPressed: () {
+                        Provider.of<MsalProvider>(context, listen: false)
+                            .logout();
+                      }
+                      )
+                ],
                 bottom: new TabBar(
                   controller: _controller,
                   tabs: <Widget>[
@@ -691,7 +725,7 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                                           onTap: clickable,
                                           child: new Container(
                                               margin: EdgeInsets.fromLTRB(0, 0, 0, 15),
-                                              padding: EdgeInsets.fromLTRB(147.5, 20, 147.5, 20),
+                                              padding: EdgeInsets.fromLTRB(127, 20, 127, 20),
                                               decoration: BoxDecoration(
                                                   border: Border.all(color: Colors.blueAccent),
                                                   borderRadius: new BorderRadius.circular(30.0),
@@ -716,6 +750,6 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
               )
           )
         ),
-        onWillPop: _onWillPop);
+    );
   }
 }

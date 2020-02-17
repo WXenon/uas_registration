@@ -1,5 +1,5 @@
 {
-  "client_id" : "11bad5e4-db65-4a2f-b8e5-24e93e232ff5",
+  "client_id" : "0e3c8cca-8783-4735-a4b2-2e950621a1e9",
   "authorization_user_agent" : "DEFAULT",
   "redirect_uri" : "msauth://com.swiftoffice.uasr.uas_registration/Gx%2BXLZ6r10Zlz6tTJ6KT85e8qeU%3D",
   "ios_redirect_uri": "msauth.com.swiftoffice.uasr.uasRegistration://auth",
@@ -8,9 +8,12 @@
     {
       "type": "AAD",
       "audience": {
-       "type": "AzureADMultipleOrgs",
-       "tenant_id": "fc418f16-5c93-437d-b743-05e9e2a04d93"
+        "type": "AzureADMyOrg",
+        "tenant_id": "fc418f16-5c93-437d-b743-05e9e2a04d93"
       }
     }
-  ]
+  ],
+  "logging": {
+    "pii_enabled": false
+  }
 }

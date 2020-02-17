@@ -29,8 +29,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                        android:host="UAS Registration"
-                        android:path="/1B:1F:97:2D:9E:AB:D7:46:65:CF:AB:53:27:A2:93:F3:97:BC:A9:E5"
+                        android:host="com.swiftoffice.uasr.uas_registration"
+                        android:path="/Gx+XLZ6r10Zlz6tTJ6KT85e8qeU="
                         android:scheme="msauth" />
             </intent-filter>
         </activity>
