@@ -102,6 +102,8 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
   void _zeromarginSafetyChanged(bool value) =>
       setState(() => zeromarginSafety = value);
 
+  bool baseline,
+
   void clickable() {
     if (weightReq &&
         pL_passive &&
