@@ -102,7 +102,21 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
   void _zeromarginSafetyChanged(bool value) =>
       setState(() => zeromarginSafety = value);
 
-  bool baseline,
+  bool baseline = false;
+  String username, uasname, physicalarea, uasdragcoef, maxthrust, propellerdiameter, propellerweight, noofbladepropeller, propellerrpm,
+      propdragcoef, maxgpsverterr, maxgpshorerr, battmodel, batttype, battstandard, battappoxmaxtime, battcap, battvolt, battenergy,
+      oemoftethersystem, materialoftether, strengthoftether, anchortetheranchor, jointtetheruas, strengthanchortetheranchor, strengthjointtetheruas, method;
+
+  TextEditingController uasnamecontroller = new TextEditingController(), physicalareacontroller = new TextEditingController(), uasdragcoefcontroller = new TextEditingController(),
+      maxthrustcontroller = new TextEditingController(), propellerdiametercontroller = new TextEditingController(), propellerweightcontroller = new TextEditingController(),
+      noofbladepropellercontroller = new TextEditingController(), propellerrpmcontroller = new TextEditingController(), propdragcoefcontroller = new TextEditingController(),
+      maxgpsverterrcontroller = new TextEditingController(), maxgpshorerrcontroller = new TextEditingController(), battmodelcontroller = new TextEditingController(),
+      batttypecontroller = new TextEditingController(), battstandardcontroller = new TextEditingController(), battappoxmaxtimecontroller = new TextEditingController(),
+      battcapcontroller = new TextEditingController(), battvoltcontroller = new TextEditingController(), battenergycontroller = new TextEditingController(),
+      oemoftethersystemcontroller = new TextEditingController(), materialoftethercontroller = new TextEditingController(),
+      strengthoftethercontroller = new TextEditingController(), anchortetheranchorcontroller = new TextEditingController(),
+      jointtetheruascontroller = new TextEditingController(), strengthanchortetheranchorcontroller = new TextEditingController(),
+      strengthjointtetheruascontroller = new TextEditingController(), methodcontroller = new TextEditingController();
 
   void clickable() {
     if (weightReq &&
@@ -118,18 +132,42 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
         dF_2steppropulsion &&
         cots &&
         zeromarginSafety) {
-      Fluttertoast.showToast(
-          msg: "Successful Submission",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1
-      );
+      baseline = true;
+      uasname = uasnamecontroller.toString();
+      physicalarea = physicalareacontroller.toString();
+      uasdragcoef = uasdragcoefcontroller.toString();
+      maxthrust = maxthrustcontroller.toString();
+      propellerdiameter = propellerdiametercontroller.toString();
+      propellerweight = propellerweightcontroller.toString();
+      noofbladepropeller = noofbladepropellercontroller.toString();
+      propellerrpm = propellerrpmcontroller.toString();
+      propdragcoef = propdragcoefcontroller.toString();
+      maxgpsverterr = maxgpsverterrcontroller.toString();
+      maxgpshorerr = maxgpshorerrcontroller.toString();
+      battmodel = battmodelcontroller.toString();
+      batttype = batttypecontroller.toString();
+      battstandard = battstandardcontroller.toString();
+      battappoxmaxtime = battappoxmaxtimecontroller.toString();
+      battcap = battcapcontroller.toString();
+      battvolt = battvoltcontroller.toString();
+      battenergy = battenergycontroller.toString();
+      oemoftethersystem = oemoftethersystemcontroller.toString();
+      materialoftether = materialoftethercontroller.toString();
+      strengthoftether = strengthoftethercontroller.toString();
+      anchortetheranchor = anchortetheranchorcontroller.toString();
+      jointtetheruas = jointtetheruascontroller.toString();
+      strengthanchortetheranchor = strengthanchortetheranchorcontroller.toString();
+      strengthjointtetheruas = strengthjointtetheruascontroller.toString();
+      method = methodcontroller.toString();
     } else {
       Fluttertoast.showToast(
-          msg: "Unsuccessful Submission",
-          toastLength: Toast.LENGTH_SHORT,
+          msg: "Error: All baseline requirements has to be met to register",
+          toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1
+          timeInSecForIos: 3,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
       );
     }
   }
