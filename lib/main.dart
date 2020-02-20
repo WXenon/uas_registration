@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:uas_registration/providers/msal_provider.dart';
 import 'package:uas_registration/screens/authenticate/sign_in.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() => runApp(
     MultiProvider(
@@ -32,10 +33,21 @@ class _MyAppState extends State<UASReg> {
                   }
 
                   else if (msal.status == AuthStatus.UNAUTHENTICATED){
+                    Fluttertoast.showToast(
+                        msg: "Could not login, please try again or approach an administrator",
+                        toastLength: Toast.LENGTH_LONG,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIos: 3,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0
+                    );
                     print(msal.status);
                     return SignIn();
                   }
                   else if (msal.status == AuthStatus.AUTHENTICATED_USER){
+                    if (Provider.of<MsalProvider>(context, listen: false)
+                        .getAccount().)
                     print(msal.status);
                     return UASRegistered();
                   }
