@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:uas_registration/providers/msal_provider.dart';
 import 'package:uas_registration/screens/authenticate/sign_in.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:uas_registration/providers/db_provider.dart';
+import 'package:uas_registration/models/dartmodel.dart';
 
 void main() => runApp(
     MultiProvider(
@@ -22,6 +24,9 @@ class UASReg extends StatefulWidget {
 }
 
 class _MyAppState extends State<UASReg> {
+
+  UASRegClient client = new UASRegClient();
+
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
@@ -46,10 +51,28 @@ class _MyAppState extends State<UASReg> {
                     return SignIn();
                   }
                   else if (msal.status == AuthStatus.AUTHENTICATED_USER){
-                    if (Provider.of<MsalProvider>(context, listen: false)
-                        .getAccount().)
-                    print(msal.status);
-                    return UASRegistered();
+                    if (client.sendTaskRequest(Provider.of<MsalProvider>(context, listen: false)
+                        .getAccount(), 1) == null){
+                      final admin = client.getAdmin(Provider.of<MsalProvider>(context, listen: false)
+                          .getAccount());
+                      if (admin == 0){
+                        return UASRegisteredAdmin();
+                      }
+                      else{
+                        print(msal.status);
+                        return UASRegistered();
+                      }
+                    }else{
+                      final admin = client.getAdmin(Provider.of<MsalProvider>(context, listen: false)
+                          .getAccount());
+                      if (admin != 0){
+                        return UASRegisteredAdmin();
+                      }
+                      else{
+                        print(msal.status);
+                        return UASRegistered();
+                      }
+                    }
                   }
                   else {
                     msal.logout();

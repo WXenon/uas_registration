@@ -1,55 +1,57 @@
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
-import 'package:wolfpack/api/models.dart';
-import 'package:wolfpack/providers/msal_provider.dart';
+import 'package:uas_registration/models/dartmodel.dart';
+import 'package:uas_registration/models/dartmodel.dart';
+import 'package:uas_registration/providers/msal_provider.dart';
 
-String baseUrl = 'http://localhost:3000/v1';
-// String baseUrl = 'https://6b6c4c62.ngrok.io/v1';
+//String baseUrl = 'http://localhost:3000/v1';
+ String baseUrl = 'https://uasregdbconnect.azurewebsites.net';
 
-class WolfpackClient {
-  Future<Courses> getCourses() async {
+class UASRegClient {
+//  Future<Courses> getCourses() async {
+//    var client = AADClient();
+//    var res = await client.dio.get('${baseUrl}/courses/me');
+//    return Courses.fromJson(res.data);
+//  }
+
+  Future<Users> getAdmin(username) async {
     var client = AADClient();
-    var res = await client.dio.get('${baseUrl}/courses/me');
-    return Courses.fromJson(res.data);
-  }
-
-  Future<Users> getUsers() async {
-    var client = AADClient();
-    var res = await client.dio.get('${baseUrl}/users');
+    var res = await client.dio.get('$baseUrl/users', queryParameters:{
+      'username': username
+    });
     return Users.fromJson(res.data);
   }
 
-  Future<Response> sendTaskRequest(courseId, trainerId, bookTaskId) async {
+  Future<Response> sendTaskRequest(username, admin) async {
     var client = AADClient();
-    var res = await client.dio.post('${baseUrl}/courses/task', data: {
-      'course_id': courseId,
-      'trainer_id': trainerId,
-      'booktask_id': bookTaskId
+    var res = await client.dio.post('$baseUrl/users', data: {
+      'username': username,
+      'admin': admin
     });
     return res;
   }
 
   // Admin
-  Future<AdminCourses> getAdminCourses() async {
-    var client = AADClient();
-    var res = await client.dio.get('${baseUrl}/courses');
-    return AdminCourses.fromJson(res.data);
-  }
+//  Future<AdminCourses> getAdminCourses() async {
+////    var client = AADClient();
+////    var res = await client.dio.get('${baseUrl}/courses');
+////    return AdminCourses.fromJson(res.data);
+////  }
 
-  Future<Response> updateTaskRequest(status, verification_id) async {
-    var client = AADClient();
-    var tmpStatus = '';
-    if (status == TaskStatus.APPROVED) {
-      tmpStatus = 'APPROVED';
-    } else if (status == TaskStatus.REJECTED) {
-      tmpStatus = 'REJECTED';
-    }
-    var res = await client.dio.put('${baseUrl}/courses/task/update', data: {
-      'status': tmpStatus,
-      'verification_id': verification_id
-    });
-    return res;
-  }
+//  Future<Response> updateTaskRequest(status, verification_id) async {
+//    var client = AADClient();
+//    var tmpStatus = '';
+//    if (status == TaskStatus.APPROVED) {
+//      tmpStatus = 'APPROVED';
+//    } else if (status == TaskStatus.REJECTED) {
+//      tmpStatus = 'REJECTED';
+//    }
+//    var res = await client.dio.put('${baseUrl}/courses/task/update', data: {
+//      'status': tmpStatus,
+//      'verification_id': verification_id
+//    });
+//    return res;
+//  }
 }
 
 class AADClient {
