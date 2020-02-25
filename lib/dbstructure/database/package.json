@@ -5,7 +5,9 @@
   "dependencies": {
     "adal-node": "^0.2.1",
     "express": "^4.17.1",
-    "msal": "^1.2.1"
+    "msal": "^1.2.1",
+    "body-parser": "^1.19.0",
+    "tedious": "^6.1.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"

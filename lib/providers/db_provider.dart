@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:uas_registration/models/dartmodel.dart';
-import 'package:uas_registration/models/dartmodel.dart';
 import 'package:uas_registration/providers/msal_provider.dart';
 
 //String baseUrl = 'http://localhost:3000/v1';

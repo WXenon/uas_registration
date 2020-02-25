@@ -26,59 +26,70 @@ class UASReg extends StatefulWidget {
 class _MyAppState extends State<UASReg> {
 
   UASRegClient client = new UASRegClient();
+  int admin;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoApp(
         home: Consumer(
-            builder: (BuildContext context, MsalProvider msal, Widget) {
-                  if (msal.status == AuthStatus.VERIFYING){
-                    print(msal.status);
-                    return SignIn();
+            builder: (BuildContext context, MsalProvider msal, Widget)
+            {
+              if (msal.status == AuthStatus.VERIFYING) {
+                print(msal.status);
+                return SignIn();
+              }
+              else if (msal.status == AuthStatus.UNAUTHENTICATED) {
+                Fluttertoast.showToast(
+                    msg: "Could not login, please try again or approach an administrator",
+                    toastLength: Toast.LENGTH_LONG,
+                    gravity: ToastGravity.CENTER,
+                    timeInSecForIos: 3,
+                    backgroundColor: Colors.red,
+                    textColor: Colors.white,
+                    fontSize: 16.0
+                );
+                print(msal.status);
+                return SignIn();
+              }
+              else if (msal.status == AuthStatus.AUTHENTICATED_USER) {
+                if (client.sendTaskRequest(
+                    Provider.of<MsalProvider>(context, listen: false)
+                        .getAccount(), 1) != null) {
+                  void check() async {
+                    admin = (await client.getAdmin(
+                        Provider.of<MsalProvider>(context, listen: false)
+                            .getAccount())) as int;
                   }
-
-                  else if (msal.status == AuthStatus.UNAUTHENTICATED){
-                    Fluttertoast.showToast(
-                        msg: "Could not login, please try again or approach an administrator",
-                        toastLength: Toast.LENGTH_LONG,
-                        gravity: ToastGravity.CENTER,
-                        timeInSecForIos: 3,
-                        backgroundColor: Colors.red,
-                        textColor: Colors.white,
-                        fontSize: 16.0
-                    );
-                    print(msal.status);
-                    return SignIn();
-                  }
-                  else if (msal.status == AuthStatus.AUTHENTICATED_USER){
-                    if (client.sendTaskRequest(Provider.of<MsalProvider>(context, listen: false)
-                        .getAccount(), 1) == null){
-                      final admin = client.getAdmin(Provider.of<MsalProvider>(context, listen: false)
-                          .getAccount());
-                      if (admin == 0){
-                        return UASRegisteredAdmin();
-                      }
-                      else{
-                        print(msal.status);
-                        return UASRegistered();
-                      }
-                    }else{
-                      final admin = client.getAdmin(Provider.of<MsalProvider>(context, listen: false)
-                          .getAccount());
-                      if (admin != 0){
-                        return UASRegisteredAdmin();
-                      }
-                      else{
-                        print(msal.status);
-                        return UASRegistered();
-                      }
-                    }
+                  check();
+                  if (admin != 0) {
+                    return UASRegisteredAdmin();
                   }
                   else {
-                    msal.logout();
-                    return SignIn();
+                    print(msal.status);
+                    return UASRegistered();
                   }
+                }
+                else {
+                  void check() async {
+                    admin = (await client.getAdmin(
+                      Provider.of<MsalProvider>(context, listen: false)
+                          .getAccount())) as int;
+                  }
+                  check();
+                  if (admin != 0) {
+                    return UASRegisteredAdmin();
+                  }
+                  else {
+                    print(msal.status);
+                    return UASRegistered();
+                  }
+                }
+              } else {
+                msal.logout();
+                return SignIn();
+              }
             }
-        ));
+            )
+    );
   }
 }
