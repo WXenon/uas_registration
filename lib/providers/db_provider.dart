@@ -2,10 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:uas_registration/models/dartmodel.dart';
 import 'package:uas_registration/providers/msal_provider.dart';
+import 'package:json_annotation/json_annotation.dart';
 
 //String baseUrl = 'http://localhost:3000/v1';
  String baseUrl = 'https://uasregdbconnect.azurewebsites.net';
 
+@JsonSerializable(nullable: false)
 class UASRegClient {
 //  Future<Courses> getCourses() async {
 //    var client = AADClient();

@@ -137,7 +137,7 @@ class MsalToken {
 
   Future<String> token() async {
     var prefs = await SharedPreferences.getInstance();
-    return await prefs.getString('user_token');
+    return prefs.getString('user_token');
   }
 
   Future<void> remove() async {
