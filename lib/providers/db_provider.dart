@@ -15,19 +15,108 @@ class UASRegClient {
 //    return Courses.fromJson(res.data);
 //  }
 
-  Future<Users> getAdmin(username) async {
+  Future<Users> getUsers(username) async {
     var client = AADClient();
-    var res = await client.dio.get('$baseUrl/users', queryParameters:{
+    var res = await client.dio.get('$baseUrl/users/getSpec', queryParameters:{
       'username': username
     });
     return Users.fromJson(res.data);
   }
 
-  Future<Response> sendTaskRequest(username, admin) async {
+  Future<Response> createUser(String username, int admin) async {
     var client = AADClient();
-    var res = await client.dio.post('$baseUrl/users', data: {
+    var res = await client.dio.post('$baseUrl/users/create', data: {
       'username': username,
       'admin': admin
+    });
+    return res;
+  }
+
+  Future<Response> createUAS(String username, String uasname, String physicalarea, String uasdragcoef, String maxthrust, String propellerdiameter, String propellerweight,
+      String noofbladepropeller, String propellerrpm, String propdragcoef, String maxgpsverterr, String maxgpshorerr, String battmodel, String batttype, String battstandard,
+      String battappoxmaxtime, String battcap, String battvolt, String battenergy, String oemoftethersystem, String materialoftether, String strengthoftether, String anchortetheranchor,
+      String jointtetheruas, String strengthanchortetheranchor, String strengthjointtetheruas, String method) async {
+    var client = AADClient();
+    var res = await client.dio.post('$baseUrl/users/create', data: {
+      'username': username,
+      'uasname': uasname,
+      'physicalarea': physicalarea,
+      'uasdragcoef': uasdragcoef,
+      'maxthrust': maxthrust,
+      'propellerdiameter': propellerdiameter,
+      'propellerweight': propellerweight,
+      'noofbladepropeller': noofbladepropeller,
+      'propellerrpm': propellerrpm,
+      'propdragcoef': propdragcoef,
+      'maxgpsverterr': maxgpsverterr,
+      'maxgpshorerr': maxgpshorerr,
+      'battmodel': battmodel,
+      'batttype': batttype,
+      'battstandard': battstandard,
+      'battapproxmaxtime': battappoxmaxtime,
+      'battcap': battcap,
+      'battvolt': battvolt,
+      'battenergy': battenergy,
+      'oemoftethersystem': oemoftethersystem,
+      'materialoftether': materialoftether,
+      'strengthoftether': strengthoftether,
+      'anchortetheranchor': anchortetheranchor,
+      'jointtetheruas': jointtetheruas,
+      'strenthanchortetheranchor': strengthanchortetheranchor,
+      'strengthjointtetheruas': strengthjointtetheruas,
+      'method': method
+    });
+    return res;
+  }
+
+  Future<Response> createUASR(String uasname, String physicalarea, String uasdragcoef, String maxthrust, String propellerdiameter, String propellerweight,
+      String noofbladepropeller, String propellerrpm, String propdragcoef, String maxgpsverterr, String maxgpshorerr, String battmodel, String batttype, String battstandard,
+      String battappoxmaxtime, String battcap, String battvolt, String battenergy, String oemoftethersystem, String materialoftether, String strengthoftether, String anchortetheranchor,
+      String jointtetheruas, String strengthanchortetheranchor, String strengthjointtetheruas, String method) async {
+    var client = AADClient();
+    var res = await client.dio.post('$baseUrl/users/create', data: {
+      'uasname': uasname,
+      'physicalarea': physicalarea,
+      'uasdragcoef': uasdragcoef,
+      'maxthrust': maxthrust,
+      'propellerdiameter': propellerdiameter,
+      'propellerweight': propellerweight,
+      'noofbladepropeller': noofbladepropeller,
+      'propellerrpm': propellerrpm,
+      'propdragcoef': propdragcoef,
+      'maxgpsverterr': maxgpsverterr,
+      'maxgpshorerr': maxgpshorerr,
+      'battmodel': battmodel,
+      'batttype': batttype,
+      'battstandard': battstandard,
+      'battapproxmaxtime': battappoxmaxtime,
+      'battcap': battcap,
+      'battvolt': battvolt,
+      'battenergy': battenergy,
+      'oemoftethersystem': oemoftethersystem,
+      'materialoftether': materialoftether,
+      'strengthoftether': strengthoftether,
+      'anchortetheranchor': anchortetheranchor,
+      'jointtetheruas': jointtetheruas,
+      'strenthanchortetheranchor': strengthanchortetheranchor,
+      'strengthjointtetheruas': strengthjointtetheruas,
+      'method': method
+    });
+    return res;
+  }
+
+  Future<Response> deleteUASR(String uasname) async {
+    var client = AADClient();
+    var res = await client.dio.post('$baseUrl/users/create', data: {
+      'username': uasname,
+    });
+    return res;
+  }
+
+  Future<Response> deleteUAS(String uasname) async {
+    var client = AADClient();
+    var res = await client.dio.post('$baseUrl/users/create', data: {
+      'username': uasname,
     });
     return res;
   }

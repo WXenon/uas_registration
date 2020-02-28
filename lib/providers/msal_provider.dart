@@ -54,18 +54,20 @@ class MsalProvider extends ChangeNotifier {
 
   //Get Signed In Accounts
   Future<String> getAccount() async {
+    String endResult;
     await _msal.getAccount().then((result) {
       if (result.currentAccount != null) {
         print('current account id: ${result.currentAccount.id}');
         _status = AuthStatus.AUTHENTICATED_USER;
         notifyListeners();
-        return result.currentAccount.id;
+        endResult = result.currentAccount.id;
       } else {
         _status = AuthStatus.UNAUTHENTICATED;
         print('there is no current account id.');
-        return null;
+        endResult = null;
       }
     });
+    return endResult;
   }
 
   //Acquire tokens

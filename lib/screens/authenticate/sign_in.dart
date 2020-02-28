@@ -17,6 +17,7 @@ class _SignInState extends State<SignIn> {
   ProgressDialog pd;
   MsalMobile msal;
   UASRegClient client = new UASRegClient();
+  String username;
 
   @override
   Widget build(BuildContext context) {
@@ -48,10 +49,10 @@ class _SignInState extends State<SignIn> {
                         style: new TextStyle(fontSize: 40.0),
                       ),
                       SizedBox(height: 20.0),
-//                      Image.asset(
-//                        'assets/images/logo.png',
-//                        scale: 1.0,
-//                      ),
+                      Image.asset(
+                        'assets/images/loginPic.gif',
+                        scale: 1.0,
+                      ),
                     ],
                   ),
                   Container(
@@ -68,9 +69,12 @@ class _SignInState extends State<SignIn> {
                               onPressed: () async {
                                 Provider.of<MsalProvider>(context, listen: false)
                                     .login();
-                                await client.sendTaskRequest(Provider.of<MsalProvider>(context, listen: false).getAccount(), 1);
                                 Provider.of<MsalProvider>(context, listen: false)
+                                    .acquireTokenSilently();
+                                username = await Provider.of<MsalProvider>(context, listen: false)
                                     .getAccount();
+                                await client.createUser(username, 1);
+
                               }),
                         ],
                       ),

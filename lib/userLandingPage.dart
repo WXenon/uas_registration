@@ -8,8 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:msal_mobile/msal_mobile.dart';
+import 'package:uas_registration/providers/db_provider.dart';
 import 'package:uas_registration/providers/msal_provider.dart';
-import 'dart:io';
+import 'package:dio/dio.dart';
 
 class UASRegistered extends StatelessWidget {
   @override
@@ -40,6 +41,9 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
   MsalMobile msal;
   TabController _controller;
 
+  UASRegClient client = new UASRegClient();
+
+  String futureUsername;
 //  Future<bool> _onWillPop() async {
 //    return (await showDialog(
 //          context: context,
@@ -118,7 +122,19 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
       jointtetheruascontroller = new TextEditingController(), strengthanchortetheranchorcontroller = new TextEditingController(),
       strengthjointtetheruascontroller = new TextEditingController(), methodcontroller = new TextEditingController();
 
-  void clickable() {
+  Future<String> getFutureUsername() async{
+    futureUsername = await Provider.of<MsalProvider>(context, listen: false).getAccount();
+    return futureUsername;
+  }
+
+  String getUsername(){
+    getFutureUsername().then((futureUsername){
+      username = futureUsername;
+    });
+    return username;
+  }
+
+  Future<void> clickable() async{
     if (weightReq &&
         pL_passive &&
         pL_non_jett &&
@@ -159,9 +175,35 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
       strengthanchortetheranchor = strengthanchortetheranchorcontroller.toString();
       strengthjointtetheruas = strengthjointtetheruascontroller.toString();
       method = methodcontroller.toString();
+
+      var res = await client.createUAS(getUsername(), uasname, physicalarea, uasdragcoef, maxthrust, propellerdiameter, propellerweight, noofbladepropeller, propellerrpm,
+          propdragcoef, maxgpsverterr, maxgpshorerr, battmodel, batttype, battstandard, battappoxmaxtime, battcap, battvolt, battenergy,
+          oemoftethersystem, materialoftether, strengthoftether, anchortetheranchor, jointtetheruas, strengthanchortetheranchor, strengthjointtetheruas, method);
+      if (res != null){
+        Fluttertoast.showToast(
+            msg: "UAS has been submitted for approval",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 3,
+            backgroundColor: Colors.tealAccent,
+            textColor: Colors.black,
+            fontSize: 16.0
+        );
+      }
+      else{
+        Fluttertoast.showToast(
+            msg: "Registration failed, please make sure you have internet connection and try again",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
     } else {
       Fluttertoast.showToast(
-          msg: "Error: All baseline requirements has to be met to register",
+          msg: "Application rejected: All baseline requirements has to be met to register",
           toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
           timeInSecForIos: 3,

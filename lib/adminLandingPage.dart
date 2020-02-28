@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:uas_registration/providers/db_provider.dart';
+import 'package:uas_registration/providers/msal_provider.dart';
+import 'package:dio/dio.dart';
 
 class UASRegisteredAdmin extends StatelessWidget {
   @override
@@ -29,6 +33,10 @@ class Tabs {
 
 class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerProviderStateMixin{
   TabController _controller;
+  
+  UASRegClient client = new UASRegClient();
+
+  String futureUsername;
 
   Future<bool> _onWillPop() async {
     return (await showDialog(
@@ -92,7 +100,35 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
   void _zeromarginSafetyChanged(bool value) =>
       setState(() => zeromarginSafety = value);
 
-  void clickable() {
+  bool baseline = false;
+  String username, uasname, physicalarea, uasdragcoef, maxthrust, propellerdiameter, propellerweight, noofbladepropeller, propellerrpm,
+      propdragcoef, maxgpsverterr, maxgpshorerr, battmodel, batttype, battstandard, battappoxmaxtime, battcap, battvolt, battenergy,
+      oemoftethersystem, materialoftether, strengthoftether, anchortetheranchor, jointtetheruas, strengthanchortetheranchor, strengthjointtetheruas, method;
+
+  TextEditingController uasnamecontroller = new TextEditingController(), physicalareacontroller = new TextEditingController(), uasdragcoefcontroller = new TextEditingController(),
+      maxthrustcontroller = new TextEditingController(), propellerdiametercontroller = new TextEditingController(), propellerweightcontroller = new TextEditingController(),
+      noofbladepropellercontroller = new TextEditingController(), propellerrpmcontroller = new TextEditingController(), propdragcoefcontroller = new TextEditingController(),
+      maxgpsverterrcontroller = new TextEditingController(), maxgpshorerrcontroller = new TextEditingController(), battmodelcontroller = new TextEditingController(),
+      batttypecontroller = new TextEditingController(), battstandardcontroller = new TextEditingController(), battappoxmaxtimecontroller = new TextEditingController(),
+      battcapcontroller = new TextEditingController(), battvoltcontroller = new TextEditingController(), battenergycontroller = new TextEditingController(),
+      oemoftethersystemcontroller = new TextEditingController(), materialoftethercontroller = new TextEditingController(),
+      strengthoftethercontroller = new TextEditingController(), anchortetheranchorcontroller = new TextEditingController(),
+      jointtetheruascontroller = new TextEditingController(), strengthanchortetheranchorcontroller = new TextEditingController(),
+      strengthjointtetheruascontroller = new TextEditingController(), methodcontroller = new TextEditingController();
+
+  Future<String> getFutureUsername() async{
+    futureUsername = await Provider.of<MsalProvider>(context, listen: false).getAccount();
+    return futureUsername;
+  }
+
+  String getUsername(){
+    getFutureUsername().then((futureUsername){
+      username = futureUsername;
+    });
+    return username;
+  }
+
+  Future<void> clickable() async{
     if (weightReq &&
         pL_passive &&
         pL_non_jett &&
@@ -106,18 +142,68 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
         dF_2steppropulsion &&
         cots &&
         zeromarginSafety) {
-      Fluttertoast.showToast(
-          msg: "Successful Submission",
-          toastLength: Toast.LENGTH_SHORT,
-          gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1
-      );
+      baseline = true;
+      uasname = uasnamecontroller.toString();
+      physicalarea = physicalareacontroller.toString();
+      uasdragcoef = uasdragcoefcontroller.toString();
+      maxthrust = maxthrustcontroller.toString();
+      propellerdiameter = propellerdiametercontroller.toString();
+      propellerweight = propellerweightcontroller.toString();
+      noofbladepropeller = noofbladepropellercontroller.toString();
+      propellerrpm = propellerrpmcontroller.toString();
+      propdragcoef = propdragcoefcontroller.toString();
+      maxgpsverterr = maxgpsverterrcontroller.toString();
+      maxgpshorerr = maxgpshorerrcontroller.toString();
+      battmodel = battmodelcontroller.toString();
+      batttype = batttypecontroller.toString();
+      battstandard = battstandardcontroller.toString();
+      battappoxmaxtime = battappoxmaxtimecontroller.toString();
+      battcap = battcapcontroller.toString();
+      battvolt = battvoltcontroller.toString();
+      battenergy = battenergycontroller.toString();
+      oemoftethersystem = oemoftethersystemcontroller.toString();
+      materialoftether = materialoftethercontroller.toString();
+      strengthoftether = strengthoftethercontroller.toString();
+      anchortetheranchor = anchortetheranchorcontroller.toString();
+      jointtetheruas = jointtetheruascontroller.toString();
+      strengthanchortetheranchor = strengthanchortetheranchorcontroller.toString();
+      strengthjointtetheruas = strengthjointtetheruascontroller.toString();
+      method = methodcontroller.toString();
+      
+      var res = await client.createUASR(uasname, physicalarea, uasdragcoef, maxthrust, propellerdiameter, propellerweight, noofbladepropeller, propellerrpm,
+          propdragcoef, maxgpsverterr, maxgpshorerr, battmodel, batttype, battstandard, battappoxmaxtime, battcap, battvolt, battenergy,
+          oemoftethersystem, materialoftether, strengthoftether, anchortetheranchor, jointtetheruas, strengthanchortetheranchor, strengthjointtetheruas, method);
+      if (res != null){
+        Fluttertoast.showToast(
+            msg: "UAS has been submitted for approval",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 3,
+            backgroundColor: Colors.tealAccent,
+            textColor: Colors.black,
+            fontSize: 16.0
+        );
+      }
+      else{
+        Fluttertoast.showToast(
+            msg: "Registration failed, please make sure you have internet connection and try again",
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIos: 3,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
     } else {
       Fluttertoast.showToast(
-          msg: "Unsuccessful Submission",
-          toastLength: Toast.LENGTH_SHORT,
+          msg: "Application rejected: All baseline requirements has to be met to register",
+          toastLength: Toast.LENGTH_LONG,
           gravity: ToastGravity.CENTER,
-          timeInSecForIos: 1
+          timeInSecForIos: 3,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
       );
     }
   }
@@ -149,6 +235,15 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
             child: new Scaffold(
                 appBar: AppBar(
                   title: Text(_myHandler.title),
+                  actions: <Widget>[
+                    FlatButton(
+                        child: new Text("Logout"),
+                        onPressed: () {
+                          Provider.of<MsalProvider>(context, listen: false)
+                              .logout();
+                        }
+                    )
+                  ],
                   bottom: new TabBar(
                     controller: _controller,
                     tabs: <Widget>[
@@ -163,6 +258,18 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                     children: [
                       new Center(
                         //enter pending approvals here
+                        //              new Expanded(child: new ListView.builder(
+                        //                    itemCount: null,
+                        //                    itemBuilder: (BuildContext, int index){
+                        //                      String key = null;
+                        //                      return new Row(
+                        //                        children: <Widget>[
+                        //                          new Text('${key} : '),
+                        //                          new Text({key})
+                        //                        ],
+                        //                      );
+                        //                    })
+                        //              )
                       ),
                       new Center(
                           child: new Column(children: <Widget>[
