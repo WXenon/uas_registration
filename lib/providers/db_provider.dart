@@ -5,30 +5,27 @@ import 'package:uas_registration/providers/msal_provider.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 //String baseUrl = 'http://localhost:3000/v1';
- String baseUrl = 'https://uasregdbconnect.azurewebsites.net';
+// String baseUrl = 'http://uasr.database.windows.net';
+String baseUrl = 'https://uasregdbconnect.azurewebsites.net';
 
 @JsonSerializable(nullable: false)
 class UASRegClient {
-//  Future<Courses> getCourses() async {
-//    var client = AADClient();
-//    var res = await client.dio.get('${baseUrl}/courses/me');
-//    return Courses.fromJson(res.data);
-//  }
 
   Future<Users> getUsers(username) async {
     var client = AADClient();
-    var res = await client.dio.get('$baseUrl/users/getSpec', queryParameters:{
+    var res = await client.dio.get('$baseUrl/users/getAdmin', queryParameters:{
       'username': username
     });
     return Users.fromJson(res.data);
   }
 
-  Future<Response> createUser(String username, int admin) async {
+  Future<Response> createUser(String username, String admin) async {
     var client = AADClient();
     var res = await client.dio.post('$baseUrl/users/create', data: {
       'username': username,
       'admin': admin
     });
+    print(res);
     return res;
   }
 
@@ -107,7 +104,7 @@ class UASRegClient {
 
   Future<Response> deleteUASR(String uasname) async {
     var client = AADClient();
-    var res = await client.dio.post('$baseUrl/users/create', data: {
+    var res = await client.dio.delete('$baseUrl/users/create', data: {
       'username': uasname,
     });
     return res;
@@ -115,7 +112,7 @@ class UASRegClient {
 
   Future<Response> deleteUAS(String uasname) async {
     var client = AADClient();
-    var res = await client.dio.post('$baseUrl/users/create', data: {
+    var res = await client.dio.delete('$baseUrl/users/create', data: {
       'username': uasname,
     });
     return res;

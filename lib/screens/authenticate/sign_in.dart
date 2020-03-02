@@ -73,7 +73,7 @@ class _SignInState extends State<SignIn> {
                                     .acquireTokenSilently();
                                 username = await Provider.of<MsalProvider>(context, listen: false)
                                     .getAccount();
-                                await client.createUser(username, 1);
+                                await client.createUser(username, "1");
 
                               }),
                         ],
