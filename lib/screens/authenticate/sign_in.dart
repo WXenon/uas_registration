@@ -67,9 +67,9 @@ class _SignInState extends State<SignIn> {
                               child: Text('Microsoft Login',
                                   style: TextStyle(color: Colors.white)),
                               onPressed: () async {
-                                Provider.of<MsalProvider>(context, listen: false)
+                                await Provider.of<MsalProvider>(context, listen: false)
                                     .login();
-                                Provider.of<MsalProvider>(context, listen: false)
+                                await Provider.of<MsalProvider>(context, listen: false)
                                     .acquireTokenSilently();
                                 username = await Provider.of<MsalProvider>(context, listen: false)
                                     .getAccount();
