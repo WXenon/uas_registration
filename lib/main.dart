@@ -26,27 +26,34 @@ class UASReg extends StatefulWidget {
 class _MyAppState extends State<UASReg> {
 
   UASRegClient client = new UASRegClient();
-  int admin, futureAdmin, attempt;
+  int attempt;
   Users user;
-  String username;
+  String fUsername, username, admin, futureAdmin;
 
-  Future<String> getUsername() async{
-    username = await Provider.of<MsalProvider>(context, listen: false).getAccount();
+  Future<String> getFUsername() async{
+    fUsername = await Provider.of<MsalProvider>(context, listen: false).getAccount();
+    return fUsername;
+  }
+
+  String getUsername(){
+    getFUsername().then((fUsername) {
+      username = fUsername;
+    });
     return username;
   }
   
   Future<Users> getUser() async{
-    Users user = await client.getUsers(getUsername());
+    Users user = await client.getExistingUser(getUsername());
     return user;
   }
   
-  Future<int> getFutureAdmin() async{
-    Users user = await client.getUsers(getUsername());
+  Future<String> getFutureAdmin() async{
+    Users user = await client.getExistingUser(getUsername());
     futureAdmin = user.admin;
     return futureAdmin;
   }
 
-  int getAdmin(){
+  String getAdmin(){
     getFutureAdmin().then((futureAdmin){
       admin = futureAdmin;
     });
@@ -94,7 +101,7 @@ class _MyAppState extends State<UASReg> {
               }
               else if (msal.status == AuthStatus.AUTHENTICATED_USER) {
                 getAdmin();
-                if (admin == 1) {
+                if (admin == "1") {
                   return UASRegisteredAdmin();
                 }
                 else {

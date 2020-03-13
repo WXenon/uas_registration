@@ -11,7 +11,15 @@ String baseUrl = 'https://uasregdbconnect.azurewebsites.net/api';
 @JsonSerializable(nullable: false)
 class UASRegClient {
 
-  Future<Users> getUsers(username) async {
+  Future<Users> getExistingUser(username) async {
+    var client = AADClient();
+    var res = await client.dio.get(baseUrl + '/users/getExisting', queryParameters:{
+      'username': username
+    });
+    return Users.fromJson(res.data);
+  }
+
+  Future<Users> getAdmin(username) async {
     var client = AADClient();
     var res = await client.dio.get(baseUrl + '/users/getAdmin', queryParameters:{
       'username': username
@@ -34,7 +42,7 @@ class UASRegClient {
       String battappoxmaxtime, String battcap, String battvolt, String battenergy, String oemoftethersystem, String materialoftether, String strengthoftether, String anchortetheranchor,
       String jointtetheruas, String strengthanchortetheranchor, String strengthjointtetheruas, String method) async {
     var client = AADClient();
-    var res = await client.dio.post(baseUrl + '/users/create', data: {
+    var res = await client.dio.post(baseUrl + '/uas/create', data: {
       'username': username,
       'uasname': uasname,
       'physicalarea': physicalarea,
@@ -71,7 +79,7 @@ class UASRegClient {
       String battappoxmaxtime, String battcap, String battvolt, String battenergy, String oemoftethersystem, String materialoftether, String strengthoftether, String anchortetheranchor,
       String jointtetheruas, String strengthanchortetheranchor, String strengthjointtetheruas, String method) async {
     var client = AADClient();
-    var res = await client.dio.post(baseUrl + '/users/create', data: {
+    var res = await client.dio.post(baseUrl + '/uasr/create', data: {
       'uasname': uasname,
       'physicalarea': physicalarea,
       'uasdragcoef': uasdragcoef,
@@ -102,9 +110,32 @@ class UASRegClient {
     return res;
   }
 
+  Future<Response> getAllUas() async {
+    var client = AADClient();
+    var res = await client.dio.get(baseUrl + '/uas/');
+    print(res);
+    return res;
+  }
+
+  Future<Response> getUas(String uasname) async {
+    var client = AADClient();
+    var res = await client.dio.get(baseUrl + '/uas/view', queryParameters: {
+      'uasname': uasname,
+    });
+    print(res);
+    return res;
+  }
+
+  Future<Response> getUasr() async {
+    var client = AADClient();
+    var res = await client.dio.get(baseUrl + '/uasr/all');
+    print(res);
+    return res;
+  }
+
   Future<Response> deleteUASR(String uasname) async {
     var client = AADClient();
-    var res = await client.dio.delete(baseUrl + '/users/create', data: {
+    var res = await client.dio.delete(baseUrl + '/uasr/delete', data: {
       'username': uasname,
     });
     return res;
@@ -112,7 +143,7 @@ class UASRegClient {
 
   Future<Response> deleteUAS(String uasname) async {
     var client = AADClient();
-    var res = await client.dio.delete(baseUrl + '/users/create', data: {
+    var res = await client.dio.delete(baseUrl + '/uas/delete', data: {
       'username': uasname,
     });
     return res;

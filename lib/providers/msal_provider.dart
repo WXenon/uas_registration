@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'dart:convert';
 import 'package:msal_mobile/msal_mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uas_registration/models/dartmodel.dart';
+import 'db_provider.dart';
 
 enum AuthStatus { VERIFYING, UNAUTHENTICATED, AUTHENTICATED_USER }
 
@@ -16,6 +18,8 @@ class MsalProvider extends ChangeNotifier {
 
   AuthStatus get status => _status;
   MsalToken get token => _msalToken;
+
+  UASRegClient client = new UASRegClient();
 
   void _initMsal() async {
     await MsalMobile.create('assets/auth_config.json',
@@ -39,6 +43,11 @@ class MsalProvider extends ChangeNotifier {
         await pref.setString('user_type', 'user');
         _msalToken = MsalToken.fromJwt(result.accessToken);
         await _msalToken.store();
+        String username = await getAccount();
+        if (await client.getExistingUser(username) == null){
+          String admin = "0";
+          await client.createUser(username, admin);
+        }
         notifyListeners();
       }
     }).catchError((exception) => _msalErrorHandler(exception, callback: () {
