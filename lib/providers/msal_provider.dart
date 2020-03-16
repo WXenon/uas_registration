@@ -11,6 +11,8 @@ class MsalProvider extends ChangeNotifier {
   AuthStatus _status = AuthStatus.UNAUTHENTICATED;
   MsalMobile _msal;
   MsalToken _msalToken;
+  String username;
+  Users user;
 
   MsalProvider() {
     _initMsal();
@@ -30,6 +32,18 @@ class MsalProvider extends ChangeNotifier {
     });
   }
 
+  Future<Users> getFutureUser() async{
+    Users fUser = await client.getExistingUser(username);
+    return fUser;
+  }
+
+  Users getUser(){
+    getFutureUser().then((fUser){
+      user = fUser;
+    });
+    return user;
+  }
+
   Future<void> login({bool admin = false}) async {
     await _msal.signIn(null, [
       "api://989d1e10-2f09-46ec-9d69-8718832ee1a4/signin"
@@ -43,8 +57,8 @@ class MsalProvider extends ChangeNotifier {
         await pref.setString('user_type', 'user');
         _msalToken = MsalToken.fromJwt(result.accessToken);
         await _msalToken.store();
-        String username = await getAccount();
-        if (await client.getExistingUser(username) == null){
+        username = await getAccount();
+        if (getUser().username == "user not found"){
           String admin = "0";
           await client.createUser(username, admin);
         }

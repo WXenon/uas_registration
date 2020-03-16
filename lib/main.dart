@@ -100,8 +100,7 @@ class _MyAppState extends State<UASReg> {
                 return SignIn();
               }
               else if (msal.status == AuthStatus.AUTHENTICATED_USER) {
-                getAdmin();
-                if (admin == "1") {
+                if (getAdmin() == "1") {
                   return UASRegisteredAdmin();
                 }
                 else {

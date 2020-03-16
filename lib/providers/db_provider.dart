@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
 import 'package:uas_registration/models/dartmodel.dart';
@@ -16,7 +18,7 @@ class UASRegClient {
     var res = await client.dio.get(baseUrl + '/users/getExisting', queryParameters:{
       'username': username
     });
-    return Users.fromJson(res.data);
+    return Users.fromJson(json.decode(res.data)[0]);
   }
 
   Future<Users> getAdmin(username) async {
@@ -24,6 +26,7 @@ class UASRegClient {
     var res = await client.dio.get(baseUrl + '/users/getAdmin', queryParameters:{
       'username': username
     });
+
     return Users.fromJson(res.data);
   }
 
