@@ -4,11 +4,14 @@ import 'package:json_annotation/json_annotation.dart';
 class Users {
   String username, admin;
 
-  Users(this.username, this.admin);
+  Users({this.username, this.admin});
 
-  Users.fromJson(Map<String, dynamic> json)
-      : username = json['username'],
-        admin = json['admin'];
+  factory Users.fromJson(Map<String, dynamic> json){
+    return Users(
+        username : json['username'],
+        admin : json['admin']
+    );
+  }
 
   Map<String, dynamic> toJson() =>
       {

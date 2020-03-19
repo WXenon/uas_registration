@@ -13,12 +13,22 @@ String baseUrl = 'https://uasregdbconnect.azurewebsites.net/api';
 @JsonSerializable(nullable: false)
 class UASRegClient {
 
+  @JsonSerializable(nullable: false)
   Future<Users> getExistingUser(username) async {
     var client = AADClient();
     var res = await client.dio.get(baseUrl + '/users/getExisting', queryParameters:{
       'username': username
     });
-    return Users.fromJson(json.decode(res.data)[0]);
+    print(res.data);
+//    Map user = json.decode(res.data);
+//    if (user is Map<String, dynamic>){
+//      print("user is a Map");
+//    } else{
+//      print("res.data is not a Map");
+//    }
+//    final jsonData = json.decode(res.data);
+//    var map = Map<String, dynamic>.from(jsonData);
+    return Users.fromJson(res.data);
   }
 
   Future<Users> getAdmin(username) async {
