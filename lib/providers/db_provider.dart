@@ -19,8 +19,11 @@ class UASRegClient {
     var res = await client.dio.get(baseUrl + '/users/getExisting', queryParameters:{
       'username': username
     });
-    print(res.data);
-//    Map user = json.decode(res.data);
+    print(res.data['username'] + " from existing user");
+    if (res.data is Map){
+      print("is string");
+    }
+//    Map user = json.encode(res.data) as Map;
 //    if (user is Map<String, dynamic>){
 //      print("user is a Map");
 //    } else{

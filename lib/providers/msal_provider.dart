@@ -11,7 +11,6 @@ class MsalProvider extends ChangeNotifier {
   AuthStatus _status = AuthStatus.UNAUTHENTICATED;
   MsalMobile _msal;
   MsalToken _msalToken;
-  String username;
   Users user;
 
   MsalProvider() {
@@ -33,6 +32,7 @@ class MsalProvider extends ChangeNotifier {
   }
 
   Future<Users> getFutureUser() async{
+    String username = await getAccount();
     Users fUser = await client.getExistingUser(username);
     return fUser;
   }
@@ -57,10 +57,10 @@ class MsalProvider extends ChangeNotifier {
         await pref.setString('user_type', 'user');
         _msalToken = MsalToken.fromJwt(result.accessToken);
         await _msalToken.store();
-        username = await getAccount();
-        if (getUser().username == "user not found"){
+        Users currentUser = getUser();
+        if (currentUser.username == "user not found"){
           String admin = "0";
-          await client.createUser(username, admin);
+          await client.createUser(await getAccount(), admin);
         }
         notifyListeners();
       }
@@ -80,10 +80,10 @@ class MsalProvider extends ChangeNotifier {
     String endResult;
     await _msal.getAccount().then((result) {
       if (result.currentAccount != null) {
-        print('current account id: ${result.currentAccount.id}');
+        print('current account id: ${result.currentAccount.username}');
         _status = AuthStatus.AUTHENTICATED_USER;
         notifyListeners();
-        endResult = result.currentAccount.id;
+        endResult = result.currentAccount.username;
       } else {
         _status = AuthStatus.UNAUTHENTICATED;
         print('there is no current account id.');
