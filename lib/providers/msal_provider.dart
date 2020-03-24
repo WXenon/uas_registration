@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:msal_mobile/msal_mobile.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,7 +12,6 @@ class MsalProvider extends ChangeNotifier {
   AuthStatus _status = AuthStatus.UNAUTHENTICATED;
   MsalMobile _msal;
   MsalToken _msalToken;
-  Users user;
 
   MsalProvider() {
     _initMsal();
@@ -32,16 +32,20 @@ class MsalProvider extends ChangeNotifier {
   }
 
   Future<Users> getFutureUser() async{
-    String username = await getAccount();
-    Users fUser = await client.getExistingUser(username);
-    return fUser;
+    return await client.getExistingUser(await getAccount());
   }
 
   Users getUser(){
+    Users user = new Users();
     getFutureUser().then((fUser){
       user = fUser;
     });
     return user;
+  }
+
+  String getEmail(){
+    String email = getUser().username;
+    return email;
   }
 
   Future<void> login({bool admin = false}) async {
@@ -57,8 +61,8 @@ class MsalProvider extends ChangeNotifier {
         await pref.setString('user_type', 'user');
         _msalToken = MsalToken.fromJwt(result.accessToken);
         await _msalToken.store();
-        Users currentUser = getUser();
-        if (currentUser.username == "user not found"){
+        print(await getAccount());
+        if (getEmail() == "user not found"){
           String admin = "0";
           await client.createUser(await getAccount(), admin);
         }

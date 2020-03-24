@@ -2,9 +2,11 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:dio_http_cache/dio_http_cache.dart';
+import 'package:provider/provider.dart';
 import 'package:uas_registration/models/dartmodel.dart';
 import 'package:uas_registration/providers/msal_provider.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:msal_mobile/msal_mobile.dart';
 
 //String baseUrl = 'http://localhost:3000/v1';
 // String baseUrl = 'http://uasr.database.windows.net';
@@ -19,7 +21,7 @@ class UASRegClient {
     var res = await client.dio.get(baseUrl + '/users/getExisting', queryParameters:{
       'username': username
     });
-    print(res.data['username'] + " from existing user");
+    print(res.data);
     if (res.data is Map){
       print("is string");
     }
