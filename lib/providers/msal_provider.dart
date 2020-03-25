@@ -62,11 +62,17 @@ class MsalProvider extends ChangeNotifier {
         _msalToken = MsalToken.fromJwt(result.accessToken);
         await _msalToken.store();
         print(await getAccount());
-        if (getEmail() == "user not found"){
-          String admin = "0";
-          await client.createUser(await getAccount(), admin);
+        if (await getAccount() != null){
+          getAccount().then((email) async {
+            String admin = "0";
+            await client.createUser(await getAccount(), admin);
+          });
+          notifyListeners();
         }
-        notifyListeners();
+        else{
+          _status = AuthStatus.UNAUTHENTICATED;
+          notifyListeners();
+        }
       }
     }).catchError((exception) => _msalErrorHandler(exception, callback: () {
       //exception.errorcode.toString.contains('already'
