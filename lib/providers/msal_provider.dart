@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/rendering.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:msal_mobile/msal_mobile.dart';
@@ -62,12 +63,19 @@ class MsalProvider extends ChangeNotifier {
         _msalToken = MsalToken.fromJwt(result.accessToken);
         await _msalToken.store();
         print(await getAccount());
-        if (await getAccount() != null){
+        if ((await getAccount()) != null){
           getAccount().then((email) async {
-            String admin = "0";
-            await client.createUser(await getAccount(), admin);
+            client.getExistingUser(email).then((currentUser) async{
+              if (currentUser.username == "user not found"){
+                String admin = "0";
+                client.createUser(email, admin).then((jsonResponse){
+                  notifyListeners();
+                });
+              } else {
+                notifyListeners();
+              }
+            });
           });
-          notifyListeners();
         }
         else{
           _status = AuthStatus.UNAUTHENTICATED;

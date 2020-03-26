@@ -276,30 +276,42 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                   controller: _controller,
                   children: [
                 new Center(
-                    child: new Column(children: <Widget>[
-                  new Container(
-                    margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
-                    child: new Text(
-                      'Registered UAS',
-                      style: new TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.underline),
-                    ),
-                  )
-                  //              new Expanded(child: new ListView.builder(
-                  //                    itemCount: null,
-                  //                    itemBuilder: (BuildContext, int index){
-                  //                      String key = null;
-                  //                      return new Row(
-                  //                        children: <Widget>[
-                  //                          new Text('${key} : '),
-                  //                          new Text({key})
-                  //                        ],
-                  //                      );
-                  //                    })
-                  //              )
-                ])),
+                  child: new SingleChildScrollView(
+                      child: new Column(children: <Widget>[
+                        new Container(
+                          margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
+                          child: new Text(
+                            'Registered UAS',
+                            style: new TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline),
+                          ),
+                        ),
+                        new Flexible(
+                          child: new FutureBuilder(
+                            future: client.getAllUas(),
+                            initialData: null,
+                            builder: (context, snapshot) {
+                              return snapshot.hasData ? ListView.builder(
+                                itemCount: snapshot.data.length,
+                                itemBuilder: (_, int position) {
+                                  final item = snapshot.data[position];
+                                  return Card(
+                                    child: ListTile(
+                                      title: Text("Employee Name: " + snapshot.data[position].row[1]),
+                                    ),
+                                  );
+                                  },
+                              ) : Column(
+                                children: <Widget>[CircularProgressIndicator()] ,
+                              );
+                              },
+                          ),
+                        ),
+                    ])
+                ),
+                ),
                 new SingleChildScrollView(
                     child: new Center(
                         child: new Column(
