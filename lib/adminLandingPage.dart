@@ -227,6 +227,13 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
     });
   }
 
+//  @override
+//  void didChangeDependencies() {
+//    // TODO: implement didChangeDependencies
+//    super.didChangeDependencies();
+//    dependOnInheritedWidgetOfExactType();
+//  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -255,7 +262,7 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                 ),
                 body: new TabBarView(
                     controller: _controller,
-                    children: [
+                    children: <Widget>[
                       new Center(
                           child: new Column(
                             mainAxisSize:MainAxisSize.min,

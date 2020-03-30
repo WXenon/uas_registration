@@ -28,7 +28,7 @@ class _MyAppState extends State<UASReg> {
   UASRegClient client = new UASRegClient();
   int attempt;
   Users user;
-  String fUsername, username, admin, futureAdmin;
+  String fUsername, methodUsername, methodAdmin, futureAdmin;
 
   Future<String> getFUsername() async{
     fUsername = await Provider.of<MsalProvider>(context, listen: false).getAccount();
@@ -37,9 +37,9 @@ class _MyAppState extends State<UASReg> {
 
   String getUsername(){
     getFUsername().then((fUsername) {
-      username = fUsername;
+      methodUsername = fUsername;
     });
-    return username;
+    return methodUsername;
   }
   
   Future<Users> getUser() async{
@@ -55,9 +55,22 @@ class _MyAppState extends State<UASReg> {
 
   String getAdmin(){
     getFutureAdmin().then((futureAdmin){
-      admin = futureAdmin;
+      methodAdmin = futureAdmin;
     });
-    return admin;
+    return methodAdmin;
+  }
+
+  Future<String> getFExistingUser() async{
+    Users resUser = await client.getExistingUser(getUsername());
+    String resUsername = resUser.username;
+    return resUsername;
+  }
+
+  String getExistingUsername(){
+    getFExistingUser().then((username){
+      methodUsername = username;
+    });
+    return methodUsername;
   }
 
   @override
@@ -99,7 +112,8 @@ class _MyAppState extends State<UASReg> {
                 attempt++;
                 return SignIn();
               }
-              else if (msal.status == AuthStatus.AUTHENTICATED_USER) {
+              else if (msal.status == AuthStatus.AUTHENTICATED_USER && getExistingUsername() != "user not found") {
+                print(getExistingUsername());
                 if (getAdmin() == "1") {
                   return UASRegisteredAdmin();
                 }
