@@ -271,8 +271,8 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                 fit: FlexFit.loose,
                                 child: new FutureBuilder(
                                   future: client.getAllUas(),
-                                  initialData: null,
-                                  builder: (_, snapshot) {
+                                  initialData: "No Pending Applications",
+                                  builder: (BuildContext context, snapshot) {
                                     return snapshot.hasData ? ListView.builder(
                                         itemCount: snapshot.data.length,
                                         itemBuilder: (context, int position) {
@@ -297,7 +297,6 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                             ]),
                       ),
                       new Center(
-                        child: new SingleChildScrollView(
                           child: new Column(
                               mainAxisSize: MainAxisSize.min,
                               children: <Widget>[
@@ -315,8 +314,8 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                                 fit: FlexFit.loose,
                                 child: new FutureBuilder(
                                   future: client.getUasr(),
-                                  initialData: null,
-                                  builder: (_, snapshot) {
+                                  initialData: "There are no approved UAS",
+                                  builder: (BuildContext context, snapshot) {
                                     return snapshot.hasData ? ListView.builder(
                                       itemCount: snapshot.data.length,
                                       itemBuilder: (context, int position) {
@@ -335,7 +334,6 @@ class _RegisteredUASAdminPage extends State<RegisteredUASAdminPage> with TickerP
                               ),
                             ]
                           )
-                        ),
                       ),
                       new Center(
                           child: new SingleChildScrollView(

@@ -64,8 +64,8 @@ class MsalProvider extends ChangeNotifier {
         await _msalToken.store();
         print(await getAccount());
         if ((await getAccount()) != null){
-          getAccount().then((email) async {
-            client.getExistingUser(email).then((currentUser) async{
+          getAccount().then((email) {
+            client.getExistingUser(email).then((currentUser) {
               if (currentUser.username == "user not found"){
                 String admin = "0";
                 client.createUser(email, admin).then((jsonResponse){

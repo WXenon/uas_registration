@@ -23,17 +23,19 @@ class UASRegClient {
     });
     print(res.data);
     if (res.data is Map){
-      print("is string");
+      print("is Map");
+      return Users.fromJson(res.data);
     }
-//    Map user = json.encode(res.data) as Map;
-//    if (user is Map<String, dynamic>){
-//      print("user is a Map");
-//    } else{
-//      print("res.data is not a Map");
-//    }
-//    final jsonData = json.decode(res.data);
-//    var map = Map<String, dynamic>.from(jsonData);
-    return Users.fromJson(res.data);
+    else if (res.data is String){
+      print("is String");
+      Map user = json.encode(res.data) as Map;
+//      final jsonData = json.decode(res.data);
+//      var map = Map<String, dynamic>.from(jsonData);
+      return Users.fromJson(user);
+    }
+    else{
+      return Users.fromJson(null);
+    }
   }
 
   Future<Users> getAdmin(username) async {
