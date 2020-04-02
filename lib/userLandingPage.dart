@@ -292,7 +292,7 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                           new Flexible(
                             fit: FlexFit.loose,
                             child: new FutureBuilder(
-                              future: client.getAllUas(),
+                              future: client.getUasr(),
                               initialData: ["There are no approved UAS"],
                               builder: (BuildContext context, snapshot) {
                                 return snapshot.hasData ? ListView.builder(

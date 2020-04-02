@@ -15,26 +15,26 @@ String baseUrl = 'https://uasregdbconnect.azurewebsites.net/api';
 @JsonSerializable(nullable: false)
 class UASRegClient {
 
-  @JsonSerializable(nullable: false)
   Future<Users> getExistingUser(username) async {
     var client = AADClient();
     var res = await client.dio.get(baseUrl + '/users/getExisting', queryParameters:{
       'username': username
     });
-    print(res.data);
     if (res.data is Map){
-      print("is Map");
+      print("user is Map");
       return Users.fromJson(res.data);
     }
     else if (res.data is String){
-      print("is String");
-      Map user = json.encode(res.data) as Map;
-//      final jsonData = json.decode(res.data);
+      print("user is String");
+      print(res.data);
+//      Map user = json.encode(res.data) as Map;
+//      String jsonRes = "{'username':'" + res.data + "}";
+      final jsonData = json.decode(res.data);
 //      var map = Map<String, dynamic>.from(jsonData);
-      return Users.fromJson(user);
+      return Users.fromJson(jsonData);
     }
     else{
-      return Users.fromJson(null);
+      return Users.fromJson(res.data);
     }
   }
 
@@ -54,7 +54,7 @@ class UASRegClient {
       'admin': admin
     });
     print(res);
-    return res;
+    return res.data;
   }
 
   Future<Response> createUAS(String username, String uasname, String physicalarea, String uasdragcoef, String maxthrust, String propellerdiameter, String propellerweight,
@@ -91,7 +91,7 @@ class UASRegClient {
       'strengthjointtetheruas': strengthjointtetheruas,
       'method': method
     });
-    return res;
+    return res.data;
   }
 
   Future<Response> createUASR(String uasname, String physicalarea, String uasdragcoef, String maxthrust, String propellerdiameter, String propellerweight,
@@ -127,30 +127,69 @@ class UASRegClient {
       'strengthjointtetheruas': strengthjointtetheruas,
       'method': method
     });
-    return res;
+    return res.data;
   }
 
-  Future<Response> getAllUas() async {
+  Future<Uas> getAllUas() async {
     var client = AADClient();
     var res = await client.dio.get(baseUrl + '/uas/');
-    print(res);
-    return res;
+    print(res.data);
+    if (res.data is Map){
+      print("is Map");
+      return Uas.fromJson(res.data);
+    }
+    else if (res.data is String){
+      print("is String");
+      Map uasr = json.encode(res.data) as Map;
+//      final jsonData = json.decode(res.data);
+//      var map = Map<String, dynamic>.from(jsonData);
+      return Uas.fromJson(uasr);
+    }
+    else{
+      return Uas.fromJson(res.data);
+    }
   }
 
-  Future<Response> getUas(String uasname) async {
+  Future<Uas> getUas(String uasname) async {
     var client = AADClient();
     var res = await client.dio.get(baseUrl + '/uas/view', queryParameters: {
       'uasname': uasname,
     });
-    print(res);
-    return res;
+    print(res.data);
+    if (res.data is Map){
+      print("is Map");
+      return Uas.fromJson(res.data);
+    }
+    else if (res.data is String){
+      print("is String");
+      Map uasr = json.encode(res.data) as Map;
+//      final jsonData = json.decode(res.data);
+//      var map = Map<String, dynamic>.from(jsonData);
+      return Uas.fromJson(uasr);
+    }
+    else{
+      return Uas.fromJson(res.data);
+    }
   }
 
-  Future<Response> getUasr() async {
+  Future<Uasr> getUasr() async {
     var client = AADClient();
     var res = await client.dio.get(baseUrl + '/uasr/all');
-    print(res);
-    return res;
+    print(res.data);
+    if (res.data is Map){
+      print("is Map");
+      return Uasr.fromJson(res.data);
+    }
+    else if (res.data is String){
+      print("is String");
+      Map uasr = json.encode(res.data) as Map;
+//      final jsonData = json.decode(res.data);
+//      var map = Map<String, dynamic>.from(jsonData);
+      return Uasr.fromJson(uasr);
+    }
+    else{
+      return Uasr.fromJson(res.data);
+    }
   }
 
   Future<Response> deleteUASR(String uasname) async {

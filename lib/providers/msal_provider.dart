@@ -57,30 +57,36 @@ class MsalProvider extends ChangeNotifier {
         _status = AuthStatus.UNAUTHENTICATED;
         notifyListeners();
       } else if (result.success) {
-        _status = AuthStatus.AUTHENTICATED_USER;
-        var pref = await SharedPreferences.getInstance();
-        await pref.setString('user_type', 'user');
-        _msalToken = MsalToken.fromJwt(result.accessToken);
-        await _msalToken.store();
         print(await getAccount());
-        if ((await getAccount()) != null){
-          getAccount().then((email) {
-            client.getExistingUser(email).then((currentUser) {
-              if (currentUser.username == "user not found"){
-                String admin = "0";
-                client.createUser(email, admin).then((jsonResponse){
+        _msalToken = MsalToken.fromJwt(result.accessToken);
+        _msalToken.store().then((token) async{
+          if ((await getAccount()) != null){
+            getAccount().then((email) {
+              client.getExistingUser(email).then((currentUser) async{
+                if (currentUser.username == "user not found"){
+                  String admin = "0";
+                  client.createUser(email, admin).then((jsonResponse) async{
+                    _status = AuthStatus.AUTHENTICATED_USER;
+                    var pref = await SharedPreferences.getInstance();
+                    await pref.setString('user_type', 'user');
+                    notifyListeners();
+                  });
+                } else {
+                  _status = AuthStatus.AUTHENTICATED_USER;
+                  var pref = await SharedPreferences.getInstance();
+                  await pref.setString('user_type', 'user');
+                  _msalToken = MsalToken.fromJwt(result.accessToken);
+                  await _msalToken.store();
                   notifyListeners();
-                });
-              } else {
-                notifyListeners();
-              }
+                }
+              });
             });
-          });
-        }
-        else{
-          _status = AuthStatus.UNAUTHENTICATED;
-          notifyListeners();
-        }
+          }
+          else{
+            _status = AuthStatus.UNAUTHENTICATED;
+            notifyListeners();
+          }
+        });
       }
     }).catchError((exception) => _msalErrorHandler(exception, callback: () {
       //exception.errorcode.toString.contains('already'
