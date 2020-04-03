@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:msal_mobile/msal_mobile.dart';
@@ -57,36 +59,12 @@ class MsalProvider extends ChangeNotifier {
         _status = AuthStatus.UNAUTHENTICATED;
         notifyListeners();
       } else if (result.success) {
-        print(await getAccount());
+        _status = AuthStatus.AUTHENTICATED_USER;
         _msalToken = MsalToken.fromJwt(result.accessToken);
-        _msalToken.store().then((token) async{
-          if ((await getAccount()) != null){
-            getAccount().then((email) {
-              client.getExistingUser(email).then((currentUser) async{
-                if (currentUser.username == "user not found"){
-                  String admin = "0";
-                  client.createUser(email, admin).then((jsonResponse) async{
-                    _status = AuthStatus.AUTHENTICATED_USER;
-                    var pref = await SharedPreferences.getInstance();
-                    await pref.setString('user_type', 'user');
-                    notifyListeners();
-                  });
-                } else {
-                  _status = AuthStatus.AUTHENTICATED_USER;
-                  var pref = await SharedPreferences.getInstance();
-                  await pref.setString('user_type', 'user');
-                  _msalToken = MsalToken.fromJwt(result.accessToken);
-                  await _msalToken.store();
-                  notifyListeners();
-                }
-              });
-            });
-          }
-          else{
-            _status = AuthStatus.UNAUTHENTICATED;
-            notifyListeners();
-          }
-        });
+        _msalToken.store();
+        var pref = await SharedPreferences.getInstance();
+        await pref.setString('user_type', 'user');
+        notifyListeners();
       }
     }).catchError((exception) => _msalErrorHandler(exception, callback: () {
       //exception.errorcode.toString.contains('already'

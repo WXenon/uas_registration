@@ -112,13 +112,37 @@ class _MyAppState extends State<UASReg> {
                 attempt++;
                 return SignIn();
               }
-              else if (msal.status == AuthStatus.AUTHENTICATED_USER && getExistingUsername() != "user not found") {
-                print(getExistingUsername());
-                if (getAdmin() == "1") {
-                  return UASRegisteredAdmin();
+              else if (msal.status == AuthStatus.AUTHENTICATED_USER) {
+                if (getUsername() != null) {
+                  if (getExistingUsername().toString() == "user not found"){
+                    String admin = "0";
+                    client.createUser(getUsername(), admin).then((response){
+                      if (getAdmin() == "1"){
+                        return UASRegisteredAdmin();
+                      } else{
+                        return UASRegistered();
+                      }
+                    });
+                  } else if (getExistingUsername().toString().contains("swiftoffice.org")){
+                    if (getAdmin() == "1"){
+                      return UASRegisteredAdmin();
+                    }
+                    else if (getAdmin() == "0"){
+                      return UASRegistered();
+                    }
+                    else{
+                      msal.logout();
+                      return SignIn();
+                    }
+                  } else{
+                    msal.logout();
+                    return SignIn();
+                  }
+                  return UASRegistered();
                 }
                 else {
-                  return UASRegistered();
+                  msal.logout();
+                  return SignIn();
                 }
               }
               else {
