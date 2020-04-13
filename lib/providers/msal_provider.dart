@@ -62,63 +62,21 @@ class MsalProvider extends ChangeNotifier {
         _status = AuthStatus.AUTHENTICATED_USER;
         _msalToken = MsalToken.fromJwt(result.accessToken);
         _msalToken.store();
-        if(await getAccount() != null){
+        if((await getAccount()).toString().contains("swiftoffice.org")){
           getAccount().then((currentAcc) {
             client.getExistingUser(currentAcc).then((currentUser) async{
               if (currentUser.username == "user not found"){
                 String admin = "0";
                 client.createUser(currentAcc, admin).then((createRes) async{
-                  if (createRes.data is Map){
-                    print("res is Map");
-                    Users success = Users.fromJson(createRes.data);
-                    if(success.username == "success"){
-                      Fluttertoast.showToast(msg: "User created", toastLength: Toast.LENGTH_LONG);
-                      var pref = await SharedPreferences.getInstance();
-                      await pref.setString('user_type', 'user');
-                      notifyListeners();
-                    }
-                    else{
-                      Fluttertoast.showToast(msg: "User not created", toastLength: Toast.LENGTH_LONG);
-                      _status = AuthStatus.UNAUTHENTICATED;
-                      logout();
-                      notifyListeners();
-                    }
-                  }
-                  else if (createRes.data is String){
-                    print("user is String");
-                    print(createRes.data);
-//      Map user = json.encode(res.data) as Map;
-//      String jsonRes = "{'username':'" + res.data + "}";
-                    final jsonData = json.decode(createRes.data);
-                    Users success = Users.fromJson(jsonData);
-                    if(success.username == "success"){
-                      Fluttertoast.showToast(msg: "User created", toastLength: Toast.LENGTH_LONG);
-                      var pref = await SharedPreferences.getInstance();
-                      await pref.setString('user_type', 'user');
-                      notifyListeners();
-                    }
-                    else{
-                      Fluttertoast.showToast(msg: "User not created", toastLength: Toast.LENGTH_LONG);
-                      _status = AuthStatus.UNAUTHENTICATED;
-                      logout();
-                      notifyListeners();
-                    }
-//      var map = Map<String, dynamic>.from(jsonData);
+                  if (createRes.username == "success"){
+                    print("user created");
+                    Fluttertoast.showToast(msg: "Account successfully created, logging in", toastLength: Toast.LENGTH_LONG);
                   }
                   else{
-                    Users success = Users.fromJson(createRes.data);
-                    if(success.username == "success"){
-                      Fluttertoast.showToast(msg: "User created", toastLength: Toast.LENGTH_LONG);
-                      var pref = await SharedPreferences.getInstance();
-                      await pref.setString('user_type', 'user');
-                      notifyListeners();
-                    }
-                    else{
-                      Fluttertoast.showToast(msg: "User not created", toastLength: Toast.LENGTH_LONG);
-                      _status = AuthStatus.UNAUTHENTICATED;
-                      logout();
-                      notifyListeners();
-                    }
+                    print("create error");
+                    _status = AuthStatus.UNAUTHENTICATED;
+                    logout();
+                    notifyListeners();
                   }
                 });
               }
@@ -133,6 +91,9 @@ class MsalProvider extends ChangeNotifier {
             });
           });
         }
+        var pref = await SharedPreferences.getInstance();
+        await pref.setString('user_type', 'user');
+        notifyListeners();
       }
     }).catchError((exception) => _msalErrorHandler(exception, callback: () {
       //exception.errorcode.toString.contains('already'

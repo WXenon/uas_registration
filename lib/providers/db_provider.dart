@@ -37,23 +37,51 @@ class UASRegClient {
     }
   }
 
-  Future<Users> getAdmin(username) async {
-    var client = AADClient();
-    var res = await client.dio.get(baseUrl + '/users/getAdmin', queryParameters:{
-      'username': username
-    });
-
-    return Users.fromJson(res.data);
-  }
-
-  Future<Response> createUser(String username, String admin) async {
+  Future<Users> createUser(String username, String admin) async {
     var client = AADClient();
     var res = await client.dio.post(baseUrl + '/users/create', data: {
       'username': username,
       'admin': admin
     });
-    print(res);
-    return res.data;
+    if (res.data is Map){
+      print("user is Map");
+      return Users.fromJson(res.data);
+    }
+    else if (res.data is String){
+      print("user is String");
+      print(res.data);
+//      Map user = json.encode(res.data) as Map;
+//      String jsonRes = "{'username':'" + res.data + "}";
+      final jsonData = json.decode(res.data);
+//      var map = Map<String, dynamic>.from(jsonData);
+      return Users.fromJson(jsonData);
+    }
+    else{
+      return Users.fromJson(res.data);
+    }
+  }
+
+  Future<Users> getAdmin(username) async {
+    var client = AADClient();
+    var res = await client.dio.get(baseUrl + '/users/getAdmin', queryParameters:{
+      'username': username
+    });
+    if (res.data is Map){
+      print("user is Map");
+      return Users.fromJson(res.data);
+    }
+    else if (res.data is String){
+      print("user is String");
+      print(res.data);
+//      Map user = json.encode(res.data) as Map;
+//      String jsonRes = "{'username':'" + res.data + "}";
+      final jsonData = json.decode(res.data);
+//      var map = Map<String, dynamic>.from(jsonData);
+      return Users.fromJson(jsonData);
+    }
+    else{
+      return Users.fromJson(res.data);
+    }
   }
 
   Future<Response> createUAS(String username, String uasname, String physicalarea, String uasdragcoef, String maxthrust, String propellerdiameter, String propellerweight,
