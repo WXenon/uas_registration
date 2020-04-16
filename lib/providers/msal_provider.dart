@@ -62,7 +62,8 @@ class MsalProvider extends ChangeNotifier {
         _status = AuthStatus.AUTHENTICATED_USER;
         _msalToken = MsalToken.fromJwt(result.accessToken);
         _msalToken.store();
-        if((await getAccount()).toString().contains("swiftoffice.org")){
+        String account = await getAccount();
+        if(account.contains("swiftoffice")){
           getAccount().then((currentAcc) {
             client.getExistingUser(currentAcc).then((currentUser) async{
               if (currentUser.username == "user not found"){

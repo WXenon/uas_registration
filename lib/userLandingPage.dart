@@ -277,7 +277,7 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
                   children: <Widget>[
                 new Center(
                     child: new Column(
-                        mainAxisSize:MainAxisSize.min,
+                        mainAxisSize:MainAxisSize.max,
                         children: <Widget>[
                           new Container(
                             margin: EdgeInsets.fromLTRB(0, 25, 0, 0),
