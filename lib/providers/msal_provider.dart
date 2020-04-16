@@ -64,32 +64,30 @@ class MsalProvider extends ChangeNotifier {
         _msalToken.store();
         String account = await getAccount();
         if(account.contains("swiftoffice")){
-          getAccount().then((currentAcc) {
-            client.getExistingUser(currentAcc).then((currentUser) async{
-              if (currentUser.username == "user not found"){
-                String admin = "0";
-                client.createUser(currentAcc, admin).then((createRes) async{
-                  if (createRes.username == "success"){
-                    print("user created");
-                    Fluttertoast.showToast(msg: "Account successfully created, logging in", toastLength: Toast.LENGTH_LONG);
-                  }
-                  else{
-                    print("create error");
-                    _status = AuthStatus.UNAUTHENTICATED;
-                    logout();
-                    notifyListeners();
-                  }
-                });
-              }
-              else if (currentUser.username.toString().contains("swiftoffice")){
-                Fluttertoast.showToast(msg: "User found, logging in", toastLength: Toast.LENGTH_LONG);
-              }
-              else{
-                _status = AuthStatus.UNAUTHENTICATED;
-                logout();
-                notifyListeners();
-              }
-            });
+          client.getExistingUser(account).then((currentUser) async{
+            if (currentUser.username == "user not found"){
+              String admin = "0";
+              client.createUser(account, admin).then((createRes) async{
+                if (createRes.username == "success"){
+                  print("user created");
+                  Fluttertoast.showToast(msg: "Account successfully created, logging in", toastLength: Toast.LENGTH_LONG);
+                }
+                else{
+                  print("create error");
+                  _status = AuthStatus.UNAUTHENTICATED;
+                  logout();
+                  notifyListeners();
+                }
+              });
+            }
+            else if (currentUser.username.toString().contains("swiftoffice")){
+              Fluttertoast.showToast(msg: "User found, logging in", toastLength: Toast.LENGTH_LONG);
+            }
+            else{
+              _status = AuthStatus.UNAUTHENTICATED;
+              logout();
+              notifyListeners();
+            }
           });
         }
         var pref = await SharedPreferences.getInstance();
