@@ -113,16 +113,16 @@ class _MyAppState extends State<UASReg> {
                 return SignIn();
               }
               else if (msal.status == AuthStatus.AUTHENTICATED_USER) {
-                if (getAdmin() == "1"){
-                  return UASRegisteredAdmin();
-                }
-                else if (getAdmin() == "0"){
+//                if (getAdmin() == "1"){
+//                  return UASRegisteredAdmin();
+//                }
+//                else if (getAdmin() == "0"){
                   return UASRegistered();
-                }
-                else {
-                  msal.logout();
-                  return SignIn();
-                }
+//                }
+//                else {
+//                  msal.logout();
+//                  return SignIn();
+//                }
               }
               else {
                 msal.logout();
