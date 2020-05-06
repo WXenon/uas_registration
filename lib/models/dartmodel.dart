@@ -6,10 +6,10 @@ class Users {
 
   Users({this.username, this.admin});
 
-  factory Users.fromJson(Map<String, dynamic> json){
+  factory Users.fromJson(dynamic json){
     return Users(
-        username : json['username'],
-        admin : json['admin']
+        username : json['username'] as String,
+        admin : json['admin'] as String
     );
   }
 
@@ -35,36 +35,36 @@ class Uas {
     this.battappoxmaxtime, this.battcap, this.battvolt, this.battenergy, this.oemoftethersystem, this.materialoftether, this.strengthoftether, this.anchortetheranchor,
     this.jointtetheruas, this.strengthanchortetheranchor, this.strengthjointtetheruas, this.method});
 
-  factory Uas.fromJson(Map<String, dynamic> json){
+  factory Uas.fromJson(dynamic json){
     return Uas(
-      username : json['username'],
-      uasname : json['uasname'],
-      baselinecheck : json['baselinecheck'],
-      physicalarea : json['physicalarea'],
-      uasdragcoef : json['uasdragcoef'],
-      maxthrust : json['maxthrust'],
-      propellerdiameter : json['propellerdiameter'],
-      propellerweight : json['propellerweight'],
-      noofbladepropeller: json['noofbladepropeller'],
-      propellerrpm : json['propellerrpm'],
-      propdragcoef : json['propdragcoef'],
-      maxgpsverterr : json['maxgpsverterr'],
-      maxgpshorerr : json['maxgpshorerr'],
-      battmodel : json['battmodel'],
-      batttype : json['batttype'],
-      battstandard : json['battstandard'],
-      battappoxmaxtime : json['battappoxmaxtime'],
-      battcap : json['battcap'],
-      battvolt : json['battvolt'],
-      battenergy : json['battenergy'],
-      oemoftethersystem : json['oemoftethersystem'],
-      materialoftether : json['materialoftether'],
-      strengthoftether : json['strengthoftether'],
-      anchortetheranchor : json['anchortetheranchor'],
-      jointtetheruas : json['jointtetheruas'],
-      strengthanchortetheranchor : json['strengthanchortetheranchor'],
-      strengthjointtetheruas : json['strengthjointtetheruas'],
-      method : json['method'],
+      username : json['username'] as String,
+      uasname : json['uasname'] as String,
+      baselinecheck : json['baselinecheck'] as String,
+      physicalarea : json['physicalarea'] as String,
+      uasdragcoef : json['uasdragcoef'] as String,
+      maxthrust : json['maxthrust'] as String,
+      propellerdiameter : json['propellerdiameter'] as String,
+      propellerweight : json['propellerweight'] as String,
+      noofbladepropeller: json['noofbladepropeller'] as String,
+      propellerrpm : json['propellerrpm'] as String,
+      propdragcoef : json['propdragcoef'] as String,
+      maxgpsverterr : json['maxgpsverterr'] as String,
+      maxgpshorerr : json['maxgpshorerr'] as String,
+      battmodel : json['battmodel'] as String,
+      batttype : json['batttype'] as String,
+      battstandard : json['battstandard'] as String,
+      battappoxmaxtime : json['battappoxmaxtime'] as String,
+      battcap : json['battcap'] as String,
+      battvolt : json['battvolt'] as String,
+      battenergy : json['battenergy'] as String,
+      oemoftethersystem : json['oemoftethersystem'] as String,
+      materialoftether : json['materialoftether'] as String,
+      strengthoftether : json['strengthoftether'] as String,
+      anchortetheranchor : json['anchortetheranchor'] as String,
+      jointtetheruas : json['jointtetheruas'] as String,
+      strengthanchortetheranchor : json['strengthanchortetheranchor'] as String,
+      strengthjointtetheruas : json['strengthjointtetheruas'] as String,
+      method : json['method'] as String,
     );
   }
 
@@ -113,35 +113,35 @@ class Uasr {
     this.battappoxmaxtime, this.battcap, this.battvolt, this.battenergy, this.oemoftethersystem, this.materialoftether, this.strengthoftether, this.anchortetheranchor,
     this.jointtetheruas, this.strengthanchortetheranchor, this.strengthjointtetheruas, this.method});
 
-  factory Uasr.fromJson(Map<String, dynamic> json){
+  factory Uasr.fromJson(dynamic json){
     return Uasr(
-      uasname : json['uasname'],
-      baselinecheck : json['baselinecheck'],
-      physicalarea : json['physicalarea'],
-      uasdragcoef : json['uasdragcoef'],
-      maxthrust : json['maxthrust'],
-      propellerdiameter : json['propellerdiameter'],
-      propellerweight : json['propellerweight'],
-      noofbladepropeller: json['noofbladepropeller'],
-      propellerrpm : json['propellerrpm'],
-      propdragcoef : json['propdragcoef'],
-      maxgpsverterr : json['maxgpsverterr'],
-      maxgpshorerr : json['maxgpshorerr'],
-      battmodel : json['battmodel'],
-      batttype : json['batttype'],
-      battstandard : json['battstandard'],
-      battappoxmaxtime : json['battappoxmaxtime'],
-      battcap : json['battcap'],
-      battvolt : json['battvolt'],
-      battenergy : json['battenergy'],
-      oemoftethersystem : json['oemoftethersystem'],
-      materialoftether : json['materialoftether'],
-      strengthoftether : json['strengthoftether'],
-      anchortetheranchor : json['anchortetheranchor'],
-      jointtetheruas : json['jointtetheruas'],
-      strengthanchortetheranchor : json['strengthanchortetheranchor'],
-      strengthjointtetheruas : json['strengthjointtetheruas'],
-      method : json['method'],
+      uasname : json['uasname'] as String,
+      baselinecheck : json['baselinecheck'] as String,
+      physicalarea : json['physicalarea'] as String,
+      uasdragcoef : json['uasdragcoef'] as String,
+      maxthrust : json['maxthrust'] as String,
+      propellerdiameter : json['propellerdiameter'] as String,
+      propellerweight : json['propellerweight'] as String,
+      noofbladepropeller: json['noofbladepropeller'] as String,
+      propellerrpm : json['propellerrpm'] as String,
+      propdragcoef : json['propdragcoef'] as String,
+      maxgpsverterr : json['maxgpsverterr'] as String,
+      maxgpshorerr : json['maxgpshorerr'] as String,
+      battmodel : json['battmodel'] as String,
+      batttype : json['batttype'] as String,
+      battstandard : json['battstandard'] as String,
+      battappoxmaxtime : json['battappoxmaxtime'] as String,
+      battcap : json['battcap'] as String,
+      battvolt : json['battvolt'] as String,
+      battenergy : json['battenergy'] as String,
+      oemoftethersystem : json['oemoftethersystem'] as String,
+      materialoftether : json['materialoftether'] as String,
+      strengthoftether : json['strengthoftether'] as String,
+      anchortetheranchor : json['anchortetheranchor'] as String,
+      jointtetheruas : json['jointtetheruas'] as String,
+      strengthanchortetheranchor : json['strengthanchortetheranchor'] as String,
+      strengthjointtetheruas : json['strengthjointtetheruas'] as String,
+      method : json['method'] as String,
     );
   }
 

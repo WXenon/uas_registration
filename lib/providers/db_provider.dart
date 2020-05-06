@@ -199,24 +199,30 @@ class UASRegClient {
     }
   }
 
-  Future<Uasr> getUasr() async {
+  Future<List<Uasr>> getUasr() async {
     var client = AADClient();
     var res = await client.dio.get(baseUrl + '/uasr/all');
     print(res.data);
-    if (res.data is Map){
-      print("is Map");
-      return Uasr.fromJson(res.data);
-    }
-    else if (res.data is String){
-      print("is String");
-      Map uasr = json.encode(res.data) as Map;
-//      final jsonData = json.decode(res.data);
-//      var map = Map<String, dynamic>.from(jsonData);
-      return Uasr.fromJson(uasr);
-    }
-    else{
-      return Uasr.fromJson(res.data);
-    }
+//    var uasrObjsJson = jsonDecode(res.data)['uasr'] as List;
+    List<Uasr> uasrList = List();
+    res.data.foreach((key, value) => uasrList.add(res.data(key, value)));
+//    if (res.data is Map){
+//      print("is Map");
+//      String uasr = Uasr.fromJson(res.data).toString();
+//      List uasrList;
+//      uasrList.add(uasr);
+//      return uasrList;
+//    }
+//    else if (res.data is String){
+//      print("is String");
+//      List uasrList;
+//      uasrList.add(res.data);
+//      return uasrList;
+//    }
+//    else{
+//      List uasrList;
+//      uasrList.add(res.data);
+      return uasrList;
   }
 
   Future<Response> deleteUASR(String uasname) async {

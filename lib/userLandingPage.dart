@@ -14,6 +14,7 @@ import 'package:uas_registration/providers/msal_provider.dart';
 import 'package:dio/dio.dart';
 
 import 'pendingUASView.dart';
+import 'registeredUASView.dart';
 
 class UASRegistered extends StatelessWidget {
   @override
@@ -129,7 +130,7 @@ class _RegisteredUASPage extends State<RegisteredUASPage> with TickerProviderSta
               body: new TabBarView(
                   controller: _controller,
                   children: <Widget>[
-                    PendingUASView(),
+                    RegisteredUASView(),
                     NewApplication()
                   ]
               )

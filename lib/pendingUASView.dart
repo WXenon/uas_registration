@@ -25,13 +25,13 @@ class _PendingUASViewPage extends State<PendingUASViewPage> with AutomaticKeepAl
   @override
   bool get wantKeepAlive => true;
 
-  Future<Uasr> _loadingUasr;
+  Future<Uas> _loadingUas;
 
   UASRegClient client = new UASRegClient();
 
   @override
   void initState() {
-    _loadingUasr = client.getUasr(); // only create the future once.
+    _loadingUas = client.getAllUas(); // only create the future once.
     super.initState();
   }
 
@@ -39,8 +39,8 @@ class _PendingUASViewPage extends State<PendingUASViewPage> with AutomaticKeepAl
   Widget build(BuildContext context) {
     super.build(context); // because we use the keep alive mixin.
     return new FutureBuilder(
-      future: _loadingUasr,
-      initialData: ["There are no approved UAS"],
+      future: _loadingUas,
+      initialData: ["There are no pending UAS applications"],
       builder: (BuildContext context, snapshot){
         return snapshot.hasData ? ListView.builder(
           itemCount: snapshot.data.length,
