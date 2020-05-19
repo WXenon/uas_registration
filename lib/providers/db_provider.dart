@@ -202,10 +202,14 @@ class UASRegClient {
   Future<List<Uasr>> getUasr() async {
     var client = AADClient();
     var res = await client.dio.get(baseUrl + '/uasr/all');
-    print(res.data);
-//    var uasrObjsJson = jsonDecode(res.data)['uasr'] as List;
-    List<Uasr> uasrList = List();
-    res.data.foreach((key, value) => uasrList.add(res.data(key, value)));
+//    String resJson = res.data;
+//    var data = json.decode(res.data);
+//
+//
+//    List<Uasr> uasrList = List<Uasr>.from(data).map((x) => Uasr.fromJson(x));
+    var uasrObjsJson = res.data["uasr"] as List;
+    List<Uasr> uasrList = uasrObjsJson.map((uasrJson) => Uasr.fromJson(uasrJson)).toList();
+    print(uasrList.toString());
 //    if (res.data is Map){
 //      print("is Map");
 //      String uasr = Uasr.fromJson(res.data).toString();

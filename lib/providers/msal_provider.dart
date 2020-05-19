@@ -39,7 +39,7 @@ class MsalProvider extends ChangeNotifier {
   }
 
   Users getUser(){
-    Users user = new Users();
+    Users user = new Users("", "");
     getFutureUser().then((fUser){
       user = fUser;
     });
